@@ -9,13 +9,13 @@
             "name": "Auth",
             "item": [
                 {
-                    "name": "Login (Admin)",
+                    "name": "Login",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/login",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}",
+                            "raw": "// Example 1: Super Admin Login\n{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}\n\n// Example 2: Client Login\n// {\n//     \"login\": \"yash@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 3: Employee Login\n// {\n//     \"login\": \"yashbabariya\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 4: Manager Login\n// {\n//     \"login\": \"yashbabariyaeklera\",\n//     \"password\": \"Yash@2525\"\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -25,52 +25,13 @@
                     }
                 },
                 {
-                    "name": "Login (Client)",
-                    "request": {
-                        "method": "POST",
-                        "url": "{{base}}/auth/login",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"login\": \"client@example.com\",\n    \"password\": \"Client@123\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Signup (Admin)",
+                    "name": "Signup",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/signup",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"username\": \"superadmin\",\n    \"email\": \"superadmin@gmail.com\",\n    \"password\": \"SuperAdmin@123\",\n    \"role_name\": \"super-admin\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Signup (Client)",
-                    "request": {
-                        "method": "POST",
-                        "url": "{{base}}/auth/signup",
-                        "body": {
-                            "mode": "raw",
-                            "raw": {
-                                "username": "techcorp",
-                                "email": "info@techcorp.com",
-                                "password": "TechCorp@123",
-                                "company_name": "Tech Corporation",
-                                "address": "123 Tech Street, Silicon Valley",
-                                "phone": "+1-234-567-8900"
-                            },
+                            "raw": "// Example 1: Super Admin Signup\n{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\",\n    \"role_name\": \"super-admin\"\n}\n\n// Example 2: Client Signup\n// {\n//     \"username\": \"yashbabariya\",\n//     \"email\": \"yash@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 3: Employee Signup\n// {\n//     \"username\": \"yashbabariyaeklera\",\n//     \"email\": \"yashbabariyaeklera@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -223,15 +184,15 @@
                 {
                     "name": "Create Employee",
                     "request": {
-                        "method": "POST",
-                        "url": "{{base}}/employees",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
+                        "method": "POST",
+                        "url": "{{base}}/employees",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"email\": \"john.smith@techcorp.com\",\n    \"phone\": \"+1-234-567-8901\",\n    \"address\": \"456 Employee Street, Tech City\",\n    \"department\": \"IT_DEPT_ID\",\n    \"designation\": \"SENIOR_DEV_ID\",\n    \"joiningDate\": \"2024-01-15\",\n    \"salary\": 85000,\n    \"accountholder\": \"John Smith\",\n    \"accountnumber\": \"1234567890\",\n    \"bankname\": \"Tech Bank\",\n    \"ifsc\": \"TECH0001234\",\n    \"banklocation\": \"Tech City Branch\"\n}",
+                            "raw": "// Example 1: Software Developer\n{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"email\": \"john.smith@company.com\",\n    \"phone\": \"+1-234-567-8901\",\n    \"address\": \"123 Dev Street\",\n    \"department\": \"IT_DEPT_ID\",\n    \"designation\": \"SOFTWARE_DEV_ID\",\n    \"salary\": 85000\n}\n\n// Example 2: HR Manager\n// {\n//     \"firstName\": \"Sarah\",\n//     \"lastName\": \"Johnson\",\n//     \"email\": \"sarah.j@company.com\",\n//     \"phone\": \"+1-234-567-8902\",\n//     \"address\": \"456 HR Avenue\",\n//     \"department\": \"HR_DEPT_ID\",\n//     \"designation\": \"HR_MANAGER_ID\",\n//     \"salary\": 95000\n// }\n\n// Example 3: Sales Executive\n// {\n//     \"firstName\": \"Michael\",\n//     \"lastName\": \"Brown\",\n//     \"email\": \"michael.b@company.com\",\n//     \"phone\": \"+1-234-567-8903\",\n//     \"address\": \"789 Sales Road\",\n//     \"department\": \"SALES_DEPT_ID\",\n//     \"designation\": \"SALES_EXEC_ID\",\n//     \"salary\": 75000\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -273,10 +234,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "firstName": "John Updated",
-                                "salary": 55000
-                            },
+                            "raw": "// Example 1: Update basic info\n{\n    \"firstName\": \"John Updated\",\n    \"salary\": 55000\n}\n\n// Example 2: Update multiple fields\n// {\n//     \"firstName\": \"John Updated\",\n//     \"lastName\": \"Smith Updated\", \n//     \"email\": \"john.updated@company.com\",\n//     \"phone\": \"+1-234-567-8904\",\n//     \"address\": \"456 Updated Street\",\n//     \"department\": \"NEW_DEPT_ID\",\n//     \"designation\": \"SENIOR_DEV_ID\",\n//     \"salary\": 95000\n// }\n\n// Example 3: Update contact info only\n// {\n//     \"email\": \"new.email@company.com\",\n//     \"phone\": \"+1-234-567-8905\",\n//     \"address\": \"789 New Address Lane\"\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -312,11 +270,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "name": "Information Technology",
-                                "description": "Software Development and IT Operations",
-                                "client_id": "CLIENT_ID_HERE"
-                            },
+                            "raw": "// Example 1: Basic department creation\n{\n    \"name\": \"Information Technology\",\n    \"description\": \"Software Development and IT Operations\",\n    \"client_id\": \"CLIENT_ID_HERE\"\n}\n\n// Example 2: Department with detailed description\n// {\n//     \"name\": \"Human Resources\",\n//     \"description\": \"Handles employee relations, recruitment, and workplace policies\",\n//     \"client_id\": \"CLIENT_ID_HERE\"\n// }\n\n// Example 3: Department with minimal info\n// {\n//     \"name\": \"Sales\",\n//     \"description\": \"Sales and Marketing\",\n//     \"client_id\": \"CLIENT_ID_HERE\"\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -378,18 +332,15 @@
                 {
                     "name": "Create Designation",
                     "request": {
-                        "method": "POST",
-                        "url": "{{base}}/designations",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
+                        "method": "POST",
+                        "url": "{{base}}/designations",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "name": "Software Engineer",
-                                "description": "Developer position"
-                            },
+                            "raw": "{\n    \"name\": \"Software Engineer\", // designation name\n    \"description\": \"Senior Software Developer Position\", // role description\n    \"client_id\": \"CLIENT_ID_HERE\", // unique client identifier\n    // Example values:\n    // \"name\": \"Full Stack Developer\",\n    // \"description\": \"Full stack web development role\", \n    // \"client_id\": \"client_123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -401,29 +352,26 @@
                 {
                     "name": "Get All Designations",
                     "request": {
-                        "method": "GET",
-                        "url": "{{base}}/designations",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
-                        }
+                        },
+                        "method": "GET",
+                        "url": "{{base}}/designations"
                     }
                 },
                 {
                     "name": "Update Designation",
                     "request": {
-                        "method": "PUT",
-                        "url": "{{base}}/designations/:id",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
+                        "method": "PUT",
+                        "url": "{{base}}/designations/:id",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "name": "Senior Engineer",
-                                "description": "Updated position"
-                            },
+                            "raw": "{\n    \"name\": \"Senior Software Engineer\", // designation name\n    \"description\": \"Updated role description\", // role description\n    \"client_id\": \"CLIENT_ID_HERE\" // unique client identifier\n    // Example values:\n    // \"name\": \"Technical Lead\",\n    // \"description\": \"Lead technical projects and mentor team members\",\n    // \"client_id\": \"client_456\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -451,22 +399,15 @@
                 {
                     "name": "Mark Attendance",
                     "request": {
-                        "method": "POST",
-                        "url": "{{base}}/attendance",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
+                        "method": "POST",
+                        "url": "{{base}}/attendance",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "employee_id": "EMP_ID_HERE",
-                                "date": "2024-03-20",
-                                "check_in": "09:00",
-                                "check_out": "18:00",
-                                "status": "present",
-                                "notes": "Regular working day"
-                            },
+                            "raw": "{\n    \"user_id\": \"USER_ID_HERE\", // Unique identifier for the user\n    \"date\": \"2024-03-20\", // Date in YYYY-MM-DD format\n    \"check_in\": \"09:00\", // Check-in time in 24-hour format (HH:mm)\n    \"check_out\": \"18:00\", // Check-out time in 24-hour format (HH:mm)\n    \"status\": \"present\", // Status can be: present, absent, half-day, leave\n    \"notes\": \"Regular working day\" // Optional notes about attendance\n    // Example values:\n    // \"user_id\": \"usr_123\",\n    // \"date\": \"2024-03-21\",\n    // \"check_in\": \"08:30\",\n    // \"check_out\": \"17:30\",\n    // \"status\": \"half-day\",\n    // \"notes\": \"Left early due to doctor appointment\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -536,7 +477,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"employee\": \"EMP_ID_HERE\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-03\",\n    \"leaveType\": \"annual\",\n    \"reason\": \"Family vacation\",\n    \"status\": \"pending\"\n}",
+                            "raw": "// Example 1: Sick Leave\n{\n    \"employee\": \"EMP_ID_HERE\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-02\",\n    \"leaveType\": \"sick\",\n    \"reason\": \"Medical appointment\",\n    \"status\": \"pending\"\n}\n\n// Example 2: Annual Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-05-15\",\n//     \"endDate\": \"2024-05-20\",\n//     \"leaveType\": \"annual\",\n//     \"reason\": \"Family vacation\",\n//     \"status\": \"pending\"\n// }\n\n// Example 3: Half Day Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-04-10\",\n//     \"endDate\": \"2024-04-10\",\n//     \"leaveType\": \"other\",\n//     \"reason\": \"Personal work\",\n//     \"status\": \"pending\",\n//     \"isHalfDay\": true\n// }\n\n// Example 4: Maternity Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-06-01\",\n//     \"endDate\": \"2024-09-01\",\n//     \"leaveType\": \"maternity\",\n//     \"reason\": \"Maternity leave\",\n//     \"status\": \"pending\",\n//     \"documents\": [\"medical_certificate.pdf\"]\n// }\n\n// Example 5: Emergency Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-04-15\",\n//     \"endDate\": \"2024-04-15\",\n//     \"leaveType\": \"emergency\",\n//     \"reason\": \"Family emergency\",\n//     \"status\": \"pending\",\n//     \"urgent\": true\n// }\n\n// Example 6: Study Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-07-01\",\n//     \"endDate\": \"2024-07-05\",\n//     \"leaveType\": \"study\",\n//     \"reason\": \"Final examinations\",\n//     \"status\": \"pending\",\n//     \"documents\": [\"exam_schedule.pdf\"]\n// }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -617,7 +558,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"Quarterly Team Meeting\",\n    \"description\": \"Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email.\"\n}",
+                            "raw": "{\n    \"title\": \"Quarterly Team Meeting\",\n    \"description\": \"Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email.\"\n    // Example additional fields:\n    // \"date\": \"2024-03-15\",\n    // \"time\": \"10:00\",\n    // \"duration\": \"2 hours\",\n    // \"organizer\": \"John Smith\",\n    // \"department\": \"All Departments\",\n    // \"priority\": \"High\",\n    // \"attachments\": [\"agenda.pdf\", \"q1-report.xlsx\"],\n    // \"requiredAttendees\": [\"team-leads@company.com\", \"managers@company.com\"],\n    // \"optionalAttendees\": [\"all-staff@company.com\"],\n    // \"meetingLink\": \"https://meet.company.com/quarterly-meeting\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -653,13 +594,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "EventTitle": "Annual Company Picnic",
-                                "EventManager": "John Smith",
-                                "EventDate": "2024-05-15",
-                                "EventTime": "10:00",
-                                "Description": "Join us for a day of fun and team building at Central Park"
-                            },
+                            "raw": "{\n    \"EventTitle\": \"Annual Company Picnic\",\n    \"EventManager\": \"John Smith\",\n    \"EventDate\": \"2024-05-15\",\n    \"EventTime\": \"10:00\",\n    \"Description\": \"Join us for a day of fun and team building at Central Park\",\n    \"Location\": \"Central Park, Main Lawn\",\n    \"Duration\": \"6 hours\",\n    \"Department\": \"All Departments\",\n    \"MaxAttendees\": 200,\n    \"Budget\": 5000,\n    \"Activities\": [\"Team Games\", \"BBQ Lunch\", \"Live Music\"],\n    \"RequiredItems\": [\"Company ID\", \"Sports Gear\"],\n    \"ContactPerson\": \"Jane Doe\",\n    \"ContactEmail\": \"events@company.com\",\n    \"RegistrationDeadline\": \"2024-05-01\",\n    \"DietaryOptions\": [\"Vegetarian\", \"Vegan\", \"Non-Vegetarian\"],\n    \"WeatherPlan\": \"Event will move to indoor venue if raining\",\n    \"TransportationProvided\": true,\n    \"ParkingAvailable\": true\n    // Additional optional fields:\n    // \"Status\": \"Planned\", // Planned, In Progress, Completed, Cancelled\n    // \"RegistrationLink\": \"https://company.com/events/register/picnic2024\",\n    // \"EmergencyContact\": {\n    //     \"Name\": \"Security Office\",\n    //     \"Phone\": \"555-0123\"\n    // },\n    // \"CostPerPerson\": 25,\n    // \"PaymentRequired\": false,\n    // \"Sponsors\": [\"Company A\", \"Company B\"],\n    // \"Dress Code\": \"Casual\",\n    // \"AgeRestrictions\": \"All ages welcome\",\n    // \"Amenities\": [\"First Aid Station\", \"Water Stations\", \"Rest Areas\"],\n    // \"SocialMediaTags\": [\"#CompanyPicnic2024\", \"#TeamBuilding\"],\n    // \"InsuranceCoverage\": true,\n    // \"PhotoConsent\": true,\n    // \"FeedbackSurveyLink\": \"https://company.com/survey/picnic2024\",\n    // \"CancellationPolicy\": \"48 hours notice required\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

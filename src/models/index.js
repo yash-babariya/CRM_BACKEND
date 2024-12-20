@@ -5,96 +5,71 @@ import Role from './roleModel.js';
 import Department from './departmentModel.js';
 import Designation from './designationModel.js';
 import Employee from './employeeModel.js';
-import SubscriptionPlan from './subscriptionPlanModel.js';
-import ClientSubscription from './clientSubscriptionModel.js';
+
+// Role Associations
+Role.hasMany(Employee, {
+    foreignKey: 'role_id',
+    onDelete: 'CASCADE'
+});
 
 // Client Associations
 Client.hasMany(Department, {
     foreignKey: 'client_id',
-    as: 'departments'
+    onDelete: 'CASCADE'
 });
 
 Client.hasMany(Designation, {
     foreignKey: 'client_id',
-    as: 'designations'
+    onDelete: 'CASCADE'
 });
 
 Client.hasMany(Employee, {
     foreignKey: 'client_id',
-    as: 'employees'
+    onDelete: 'CASCADE'
 });
 
 // Department Associations
 Department.belongsTo(Client, {
-    foreignKey: 'client_id',
-    as: 'client'
+    foreignKey: 'client_id'
 });
 
 Department.hasMany(Employee, {
-    foreignKey: 'department',
-    as: 'employees'
+    foreignKey: 'department_id',
+    onDelete: 'CASCADE'
 });
 
 // Designation Associations
 Designation.belongsTo(Client, {
-    foreignKey: 'client_id',
-    as: 'client'
+    foreignKey: 'client_id'
 });
 
 Designation.hasMany(Employee, {
-    foreignKey: 'designation',
-    as: 'employees'
+    foreignKey: 'designation_id',
+    onDelete: 'CASCADE'
 });
 
 // Employee Associations
 Employee.belongsTo(Department, {
-    foreignKey: 'department',
-    as: 'departmentInfo'
+    foreignKey: 'department_id'
 });
 
 Employee.belongsTo(Designation, {
-    foreignKey: 'designation',
-    as: 'designationInfo'
+    foreignKey: 'designation_id'
 });
 
 Employee.belongsTo(Role, {
-    foreignKey: 'role',
-    as: 'roleInfo'
+    foreignKey: 'role_id'
 });
 
 Employee.belongsTo(Client, {
-    foreignKey: 'client_id',
-    as: 'client'
+    foreignKey: 'client_id'
 });
 
-// Subscription Associations
-Client.hasMany(ClientSubscription, {
-    foreignKey: 'client_id',
-    as: 'subscriptions'
-});
-
-SubscriptionPlan.hasMany(ClientSubscription, {
-    foreignKey: 'plan_id',
-    as: 'subscriptions'
-});
-
-ClientSubscription.belongsTo(Client, {
-    foreignKey: 'client_id',
-    as: 'client'
-});
-
-ClientSubscription.belongsTo(SubscriptionPlan, {
-    foreignKey: 'plan_id',
-    as: 'plan'
-});
-
-// Export models in order of dependency
+// Export models
 export {
     Role,
     Client,
     Department,
     Designation,
-    Employee,
-    SubscriptionPlan,
-    ClientSubscription
+    Employee
 };

@@ -75,4 +75,4 @@ User.beforeCreate(async (user) => {
     user.id = newId;
 });
 
-export { User };
+export default User;

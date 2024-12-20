@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { User } from "../../models/userModel.js";
+import User from "../../models/userModel.js";
 import { JWT_SECRET } from "../../config/config.js";
 import responseHandler from "../../utils/responseHandler.js";
-import { Client } from "../../models/clientModel.js";
+import Client from "../../models/clientModel.js";
 
 const authenticateUser = async (req, res, next) => {
     try {

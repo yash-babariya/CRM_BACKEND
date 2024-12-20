@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Designation } from "../../models/designationModel.js";
+import Designation from "../../models/designationModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 import validator from "../../utils/validator.js";
 

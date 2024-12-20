@@ -34,4 +34,4 @@ Role.beforeCreate(async (role) => {
     role.role_id = newId;
 });
 
-export { Role };
+export default Role;

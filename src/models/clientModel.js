@@ -70,4 +70,4 @@ Client.beforeCreate(async (client) => {
     client.id = newId;
 });
 
-export { Client };
+export default Client;

@@ -1,6 +1,6 @@
-import { Role } from "../../models/roleModel.js";
-import { User } from "../../models/userModel.js";
-import { Client } from "../../models/clientModel.js";
+import Role from "../../models/roleModel.js";
+import User from "../../models/userModel.js";
+import Client from "../../models/clientModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 
 const checkUserRole = (allowedRoles) => {

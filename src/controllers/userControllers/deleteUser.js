@@ -1,14 +1,17 @@
-import { User } from "../../models/userModel.js";
+import Joi from "joi";
+import User from "../../models/userModel.js";
+import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
 export default {
-    validator: async (req, res, next) => {
-        const { id } = req.params;
-        if (!id) {
-            return responseHandler.error(res, "User ID is required");
-        }
-        next();
-    },
+    validator: validator({
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                'string.base': 'User ID must be a string',
+                'string.empty': 'User ID is required',
+            })
+        })
+    }),
     handler: async (req, res) => {
         try {
             const { id } = req.params;

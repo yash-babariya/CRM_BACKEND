@@ -1,7 +1,7 @@
 import Joi from "joi";
-import User from "../../models/userModel.js";
-import responseHandler from "../../utils/responseHandler.js";
+import Role from "../../models/roleModel.js";
 import validator from "../../utils/validator.js";
+import responseHandler from "../../utils/responseHandler.js";
 
 export default {
     validator: validator({
@@ -12,10 +12,10 @@ export default {
     }),
     handler: async (req, res) => {
         try {
-            const users = await User.findAll();
-            responseHandler.success(res, "Users fetched successfully", users);
+            const roles = await Role.findAll();
+            responseHandler.success(res, 'Roles fetched successfully', roles);
         } catch (error) {
-            responseHandler.error(res, error.errors[0].message);
+            responseHandler.error(res, error.message);
         }
     }
 }

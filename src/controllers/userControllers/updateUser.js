@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { User } from "../../models/userModel.js";
+import User from "../../models/userModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 import validator from "../../utils/validator.js";
 

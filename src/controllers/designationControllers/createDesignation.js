@@ -1,6 +1,6 @@
 import Joi from "joi";
 import responseHandler from "../../utils/responseHandler.js";
-import { Designation } from "../../models/designationModel.js";
+import Designation from "../../models/designationModel.js";
 import validator from "../../utils/validator.js";
 export default {
     validator: validator({

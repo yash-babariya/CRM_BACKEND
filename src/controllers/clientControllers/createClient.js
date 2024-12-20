@@ -1,7 +1,7 @@
 import Joi from "joi";
 import bcrypt from "bcrypt";
-import { Client } from "../../models/clientModel.js";
-import { Role } from "../../models/roleModel.js";
+import Client from "../../models/clientModel.js";
+import Role from "../../models/roleModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 import { Op } from 'sequelize';

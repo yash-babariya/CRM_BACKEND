@@ -1,5 +1,6 @@
 import Joi from "joi";
 import User from "../../models/userModel.js";
+import Role from "../../models/roleModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -15,15 +16,23 @@ export default {
     handler: async (req, res) => {
         try {
             const { id } = req.params;
-            const user = await User.findByPk(id);
+
+            const user = await User.findByPk(id, {
+                include: [{
+                    model: Role,
+                    attributes: ['role_name']
+                }],
+                attributes: { exclude: ['password'] } // Exclude password from the response
+            });
 
             if (!user) {
-                return responseHandler.error(res, "User not found");
+                return responseHandler.notFound(res, "User not found");
             }
 
             responseHandler.success(res, "User fetched successfully", user);
         } catch (error) {
-            responseHandler.error(res, error.errors[0].message);
+            console.log(error);
+            responseHandler.error(res, error.message);
         }
     }
-}
+}; 

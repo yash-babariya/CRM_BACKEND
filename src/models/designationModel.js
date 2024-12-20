@@ -39,4 +39,4 @@ Designation.beforeCreate(async (designation) => {
   designation.id = newId;
 });
 
-export { Designation };
+export default Designation;

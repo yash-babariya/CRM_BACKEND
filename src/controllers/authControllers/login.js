@@ -1,8 +1,8 @@
 import Joi from "joi";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from "../../models/userModel.js";
-import { Client } from "../../models/clientModel.js";
+import User from "../../models/userModel.js";
+import Client from "../../models/clientModel.js";
 import { JWT_SECRET } from "../../config/config.js";
 import responseHandler from "../../utils/responseHandler.js";
 import validator from "../../utils/validator.js";

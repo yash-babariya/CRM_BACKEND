@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Client } from "../../models/clientModel.js";
+import Client from "../../models/clientModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 import validator from "../../utils/validator.js";
 

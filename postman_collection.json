@@ -1,0 +1,740 @@
+{
+    "info": {
+        "_postman_id": "1b74d3b6-773b-493b-9d1e-6d0ca98bcc22",
+        "name": "CRM System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Login (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/login",
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "login": "admin@gmail.com",
+                                "password": "Admin@2525"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Login (Client)",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/login",
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "login": "client@example.com",
+                                "password": "Client@123"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Signup (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/signup",
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "username": "superadmin",
+                                "email": "superadmin@gmail.com",
+                                "password": "SuperAdmin@123",
+                                "role_name": "super-admin"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Signup (Client)",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/signup",
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "username": "techcorp",
+                                "email": "info@techcorp.com",
+                                "password": "TechCorp@123",
+                                "company_name": "Tech Corporation",
+                                "address": "123 Tech Street, Silicon Valley",
+                                "phone": "+1-234-567-8900"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Subscriptions",
+            "item": [
+                {
+                    "name": "Create Plan",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "method": "POST",
+                        "url": "{{base}}/subscriptions/plans",
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "name": "gold",
+                                "price": 499.99,
+                                "billing_cycle": "yearly",
+                                "trial_days": 14,
+                                "max_users": 50,
+                                "max_customers": 1000,
+                                "max_vendors": 100,
+                                "max_clients": 50,
+                                "storage_limit": 5120,
+                                "features": {
+                                    "account": true,
+                                    "crm": true,
+                                    "hrm": true,
+                                    "project": true,
+                                    "inventory": true,
+                                    "reports": true
+                                }
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Plans",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/subscriptions/plans",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Plan By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/subscriptions/plans/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Plan",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/subscriptions/plans/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "price": 600,
+                                "max_users": 30
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Plan",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/subscriptions/plans/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Subscribe to Plan",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/subscriptions/subscribe",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "plan_id": "plan_id_here"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Cancel Subscription",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/subscriptions/:id/cancel",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Subscription Status",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/subscriptions/status",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Usage Stats",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/subscriptions/usage",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Employees",
+            "item": [
+                {
+                    "name": "Create Employee",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/employees",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "firstName": "John",
+                                "lastName": "Smith",
+                                "email": "john.smith@techcorp.com",
+                                "phone": "+1-234-567-8901",
+                                "address": "456 Employee Street, Tech City",
+                                "department": "IT_DEPT_ID",
+                                "designation": "SENIOR_DEV_ID",
+                                "joiningDate": "2024-01-15",
+                                "salary": 85000,
+                                "accountholder": "John Smith",
+                                "accountnumber": "1234567890",
+                                "bankname": "Tech Bank",
+                                "ifsc": "TECH0001234",
+                                "banklocation": "Tech City Branch"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Employees",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/employees",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Employee By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/employees/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Employee",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/employees/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "firstName": "John Updated",
+                                "salary": 55000
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Employee",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/employees/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Departments",
+            "item": [
+                {
+                    "name": "Create Department",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/departments",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "name": "Information Technology",
+                                "description": "Software Development and IT Operations",
+                                "client_id": "CLIENT_ID_HERE"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Departments",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/departments",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Department",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/departments/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "name": "IT Updated",
+                                "description": "Updated description"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Department",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/departments/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Designations",
+            "item": [
+                {
+                    "name": "Create Designation",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/designations",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "name": "Software Engineer",
+                                "description": "Developer position"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Designations",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/designations",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Designation",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/designations/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "name": "Senior Engineer",
+                                "description": "Updated position"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Designation",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/designations/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Attendance",
+            "item": [
+                {
+                    "name": "Mark Attendance",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/attendance",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "employee_id": "EMP_ID_HERE",
+                                "date": "2024-03-20",
+                                "check_in": "09:00",
+                                "check_out": "18:00",
+                                "status": "present",
+                                "notes": "Regular working day"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Attendance",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/attendance",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Attendance By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/attendance/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Attendance",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/attendance/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "check_out": "17:00",
+                                "status": "present"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Leaves",
+            "item": [
+                {
+                    "name": "Apply Leave",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/leaves",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "employee": "EMP_ID_HERE",
+                                "startDate": "2024-04-01",
+                                "endDate": "2024-04-03",
+                                "leaveType": "annual",
+                                "reason": "Family vacation",
+                                "status": "pending"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Leaves",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/leaves",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Leave By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/leaves/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Leave",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/leaves/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "status": "approved",
+                                "admin_remarks": "Approved"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Leave",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/leaves/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Announcements",
+            "item": [
+                {
+                    "name": "Create Announcement",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/announcement-event-setup",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "title": "Quarterly Team Meeting",
+                                "description": "Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email."
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Announcements",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/announcement-event-setup",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Events",
+            "item": [
+                {
+                    "name": "Create Event",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/announcement-event-setup",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "EventTitle": "Annual Company Picnic",
+                                "EventManager": "John Smith",
+                                "EventDate": "2024-05-15",
+                                "EventTime": "10:00",
+                                "Description": "Join us for a day of fun and team building at Central Park"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base",
+            "value": "http://localhost:5353/api/v1",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "type": "string"
+        }
+    ]
+}

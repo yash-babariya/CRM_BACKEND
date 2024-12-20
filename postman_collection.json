@@ -15,10 +15,7 @@
                         "url": "{{base}}/auth/login",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "login": "admin@gmail.com",
-                                "password": "Admin@2525"
-                            },
+                            "raw": "{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -34,10 +31,7 @@
                         "url": "{{base}}/auth/login",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "login": "client@example.com",
-                                "password": "Client@123"
-                            },
+                            "raw": "{\n    \"login\": \"client@example.com\",\n    \"password\": \"Client@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -53,12 +47,7 @@
                         "url": "{{base}}/auth/signup",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "username": "superadmin",
-                                "email": "superadmin@gmail.com",
-                                "password": "SuperAdmin@123",
-                                "role_name": "super-admin"
-                            },
+                            "raw": "{\n    \"username\": \"superadmin\",\n    \"email\": \"superadmin@gmail.com\",\n    \"password\": \"SuperAdmin@123\",\n    \"role_name\": \"super-admin\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -106,25 +95,7 @@
                         "url": "{{base}}/subscriptions/plans",
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "name": "gold",
-                                "price": 499.99,
-                                "billing_cycle": "yearly",
-                                "trial_days": 14,
-                                "max_users": 50,
-                                "max_customers": 1000,
-                                "max_vendors": 100,
-                                "max_clients": 50,
-                                "storage_limit": 5120,
-                                "features": {
-                                    "account": true,
-                                    "crm": true,
-                                    "hrm": true,
-                                    "project": true,
-                                    "inventory": true,
-                                    "reports": true
-                                }
-                            },
+                            "raw": "{\n    \"name\": \"gold\",\n    \"price\": 499.99,\n    \"billing_cycle\": \"yearly\",\n    \"trial_days\": 14,\n    \"max_users\": 50,\n    \"max_customers\": 1000,\n    \"max_vendors\": 100,\n    \"max_clients\": 50,\n    \"storage_limit\": 5120,\n    \"features\": {\n        \"account\": true,\n        \"crm\": true,\n        \"hrm\": true,\n        \"project\": true,\n        \"inventory\": true,\n        \"reports\": true\n    }\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -260,22 +231,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "firstName": "John",
-                                "lastName": "Smith",
-                                "email": "john.smith@techcorp.com",
-                                "phone": "+1-234-567-8901",
-                                "address": "456 Employee Street, Tech City",
-                                "department": "IT_DEPT_ID",
-                                "designation": "SENIOR_DEV_ID",
-                                "joiningDate": "2024-01-15",
-                                "salary": 85000,
-                                "accountholder": "John Smith",
-                                "accountnumber": "1234567890",
-                                "bankname": "Tech Bank",
-                                "ifsc": "TECH0001234",
-                                "banklocation": "Tech City Branch"
-                            },
+                            "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"email\": \"john.smith@techcorp.com\",\n    \"phone\": \"+1-234-567-8901\",\n    \"address\": \"456 Employee Street, Tech City\",\n    \"department\": \"IT_DEPT_ID\",\n    \"designation\": \"SENIOR_DEV_ID\",\n    \"joiningDate\": \"2024-01-15\",\n    \"salary\": 85000,\n    \"accountholder\": \"John Smith\",\n    \"accountnumber\": \"1234567890\",\n    \"bankname\": \"Tech Bank\",\n    \"ifsc\": \"TECH0001234\",\n    \"banklocation\": \"Tech City Branch\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -580,14 +536,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "employee": "EMP_ID_HERE",
-                                "startDate": "2024-04-01",
-                                "endDate": "2024-04-03",
-                                "leaveType": "annual",
-                                "reason": "Family vacation",
-                                "status": "pending"
-                            },
+                            "raw": "{\n    \"employee\": \"EMP_ID_HERE\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-03\",\n    \"leaveType\": \"annual\",\n    \"reason\": \"Family vacation\",\n    \"status\": \"pending\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -668,10 +617,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "title": "Quarterly Team Meeting",
-                                "description": "Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email."
-                            },
+                            "raw": "{\n    \"title\": \"Quarterly Team Meeting\",\n    \"description\": \"Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email.\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

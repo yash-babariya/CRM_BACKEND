@@ -9,7 +9,7 @@ router.post('/signup', signup.validator, signup.handler);
 router.post('/login', login.validator, login.handler);
 
 // User routes (protected)
-router.get('/users', authenticateUser, checkUserRole(['super-admin']), getAllUsers.handler);
-router.get('/users/:id', authenticateUser, checkUserRole(['super-admin']), getUserById.handler);
+router.get('/', authenticateUser, checkUserRole(['super-admin']), getAllUsers.validator, getAllUsers.handler);
+router.get('/:id', authenticateUser, checkUserRole(['super-admin']), getUserById.validator, getUserById.handler);
 
 export default router;

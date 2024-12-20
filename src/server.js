@@ -18,15 +18,19 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/", routes);
 
-(async () => {
+const syncDatabase = async () => {
     try {
-
+        // Sync tables in specific order
         await sequelize.sync({ force: false });
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
     } catch (error) {
-        console.log(error.message);
+        console.error('Error syncing database:', error);
+        console.error('Detailed error:', error.original);
     }
-})();
+};
+
+syncDatabase();
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 

@@ -1,6 +1,5 @@
 import Joi from "joi";
-import Leave from "../../models/leaveModel.js";
-import User from "../../models/userModel.js";
+import SubscriptionPlan from "../../models/subscriptionPlanModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -14,21 +13,17 @@ export default {
         try {
             const { id } = req.params;
 
-            const leave = await Leave.findByPk(id, {
-                include: [{
-                    model: User,
-                    attributes: ['username', 'email']
-                }]
-            });
-
-            if (!leave) {
-                return responseHandler.notFound(res, "Leave record not found");
+            const plan = await SubscriptionPlan.findByPk(id);
+            if (!plan) {
+                return responseHandler.notFound(res, "Plan not found");
             }
 
-            responseHandler.success(res, "Leave fetched successfully", leave);
+            await plan.destroy();
+
+            responseHandler.success(res, "Plan deleted successfully");
         } catch (error) {
             console.log(error);
             responseHandler.error(res, error.message);
         }
     }
-};
+}; 

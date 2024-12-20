@@ -1,5 +1,5 @@
 import Joi from "joi";
-import Leave from "../../models/leaveModel.js";
+import RolePermission from "../../models/rolePermissionModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -9,27 +9,25 @@ export default {
             id: Joi.string().required()
         }),
         body: Joi.object({
-            status: Joi.string().valid('pending', 'approved', 'rejected').required(),
-            admin_remarks: Joi.string().optional()
+            status: Joi.string().valid('active', 'inactive').required()
         })
     }),
     handler: async (req, res) => {
         try {
             const { id } = req.params;
-            const { status, admin_remarks } = req.body;
+            const { status } = req.body;
 
-            const leave = await Leave.findByPk(id);
-            if (!leave) {
-                return responseHandler.notFound(res, "Leave record not found");
+            const rolePermission = await RolePermission.findByPk(id);
+            if (!rolePermission) {
+                return responseHandler.notFound(res, "Role permission not found");
             }
 
-            await leave.update({
+            await rolePermission.update({
                 status,
-                admin_remarks,
                 updated_by: req.user?.id
             });
 
-            responseHandler.success(res, "Leave status updated successfully", leave);
+            responseHandler.success(res, "Role permission updated successfully", rolePermission);
         } catch (error) {
             console.log(error);
             responseHandler.error(res, error.message);

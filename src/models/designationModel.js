@@ -6,37 +6,35 @@ const Designation = sequelize.define('Designation', {
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
-    unique: true,
     defaultValue: () => generateId()
   },
-  designation_name: {
+  name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true
   },
   client_id: {
     type: DataTypes.STRING,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false,
+    references: {
+      model: 'clients',
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  },
+  status: {
+    type: DataTypes.ENUM('active', 'inactive'),
+    defaultValue: 'active'
   }
 }, {
-  timestamps: true
-});
-
-Designation.beforeCreate(async (designation) => {
-  let isUnique = false;
-  let newId;
-
-  while (!isUnique) {
-    newId = generateId();
-    const existingDesignation = await Designation.findOne({
-      where: { id: newId }
-    });
-    if (!existingDesignation) {
-      isUnique = true;
-    }
-  }
-  designation.id = newId;
+  tableName: 'designations',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 export default Designation;

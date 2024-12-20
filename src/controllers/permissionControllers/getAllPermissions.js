@@ -1,7 +1,6 @@
 import Joi from "joi";
-import User from "../../models/userModel.js";
-import Role from "../../models/roleModel.js";
 import validator from "../../utils/validator.js";
+import Permission from "../../models/permissionModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 
 export default {
@@ -14,17 +13,11 @@ export default {
     handler: async (req, res) => {
         try {
             const { page = 1, limit = 10 } = req.query;
-            const users = await User.findAll({
-                include: [{
-                    model: Role,
-                    attributes: ['role_name']
-                }],
-                attributes: { exclude: ['password'] },
+            const permissions = await Permission.findAll({
                 offset: (page - 1) * limit,
                 limit: parseInt(limit)
             });
-
-            responseHandler.success(res, "Users fetched successfully", users);
+            responseHandler.success(res, "Permissions retrieved successfully", permissions);
         } catch (error) {
             console.log(error);
             responseHandler.error(res, error.message);

@@ -8,6 +8,9 @@ import departmentRoutes from "./departmentRoutes.js";
 import designationRoutes from "./designationRoutes.js";
 import attendanceRoutes from "./attendanceRoutes.js";
 import leaveRoutes from "./leaveRoutes.js";
+import permissionRoutes from "./permissionRoutes.js";
+import subscriptionRoutes from "./subscriptionRoutes.js";
+import rolePermissionRoutes from "./rolePermissionRoutes.js";
 import announcementAndeventsetupRoutes from "./announcementAndeventsetupRoutes.js";
 const router = express.Router();
 
@@ -21,6 +24,9 @@ router.use('/departments', departmentRoutes);
 router.use('/designations', designationRoutes);
 router.use('/attendance', attendanceRoutes);
 router.use('/leaves', leaveRoutes);
+router.use('/permissions', permissionRoutes);
+router.use('/role-permissions', rolePermissionRoutes);
+router.use('/subscriptions', subscriptionRoutes);
 router.use('/announcement-event-setup', announcementAndeventsetupRoutes);
 
 

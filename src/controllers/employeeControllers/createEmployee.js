@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Employee } from "../../models/index.js";
+import Employee from "../../models/employeeModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 import bcrypt from "bcrypt";

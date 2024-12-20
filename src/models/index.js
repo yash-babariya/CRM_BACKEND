@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
-import { generateId } from '../middlewares/generatorId.js';
+import generateId  from '../middlewares/generatorId.js';
 
 export const Employee = sequelize.define('Employee', {
     id: {

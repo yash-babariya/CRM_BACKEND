@@ -1,19 +1,22 @@
+import Joi from "joi";
 import { Employee } from "../../models/index.js";
+import responseHandler from "../../utils/responseHandler.js";
+import validator from "../../utils/validator.js";
 
-export const getAllEmployees = {
+export default {
+    validator: validator({
+        query: Joi.object({
+            page: Joi.number().optional(),
+            limit: Joi.number().optional()
+        })
+    }),
     handler: async (req, res) => {
         try {
             const employees = await Employee.findAll();
-            res.status(200).json({
-                message: 'Employees retrieved successfully',
-                data: employees
-            });
+            responseHandler.success(res, 'Employees retrieved successfully', employees);
         } catch (error) {
             console.error('Error fetching employees:', error);
-            res.status(500).json({
-                message: 'Error fetching employees',
-                error: error.message
-            });
+            responseHandler.error(res, 'Error fetching employees');
         }
     }
 };

@@ -3,8 +3,11 @@ import { PORT } from "./config/config.js";
 import routes from "./routes/index.js";
 import sequelize from "./config/db.js";
 import responseHandler from "./utils/responseHandler.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors({ origin: '*' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

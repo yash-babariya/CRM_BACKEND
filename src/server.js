@@ -4,7 +4,7 @@ import routes from "./routes/index.js";
 import sequelize from "./config/db.js";
 import responseHandler from "./utils/responseHandler.js";
 import cors from "cors";
-import { Role, Client, Department, Designation, Employee } from "./models/index.js";
+
 
 const app = express();
 
@@ -19,26 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/", routes);
 
-const syncDatabase = async () => {
-    try {
-        // Drop all tables first
-        await sequelize.drop();
-
-        // Create tables in correct order
-        await Role.sync();
-        await Client.sync();
-        await Department.sync();
-        await Designation.sync();
-        await Employee.sync();
-
-        console.log('Database synced successfully');
-    } catch (error) {
-        console.error('Error syncing database:', error);
-        console.error('Detailed error:', error.original);
-    }
-};
-
-syncDatabase();
+sequelize.sync();
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

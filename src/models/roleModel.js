@@ -6,32 +6,20 @@ const Role = sequelize.define('Role', {
     role_id: {
         type: DataTypes.STRING,
         primaryKey: true,
-        unique: true,
         defaultValue: () => generateId()
     },
     role_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
-        defaultValue: 'user'
+        unique: true
     },
-});
-
-Role.beforeCreate(async (role) => {
-    let isUnique = false;
-    let newId;
-    while (!isUnique) {
-        newId = generateId();
-        // Check if this ID already exists
-        const existingRole = await Role.findOne({
-            where: { role_id: newId }
-        });
-        if (!existingRole) {
-            isUnique = true;
-        }
+    role_description: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
-
-    role.role_id = newId;
+}, {
+    tableName: 'roles',
+    timestamps: true
 });
 
 export default Role;

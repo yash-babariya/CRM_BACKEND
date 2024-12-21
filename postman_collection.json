@@ -43,6 +43,84 @@
             ]
         },
         {
+            "name": "Clients",
+            "item": [
+                {
+                    "name": "Create Client",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/clients",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "// Example 1: Basic Client\n{\n    \"client_name\": \"Acme Corporation\",\n    \"email\": \"contact@acme.com\",\n    \"phone\": \"+1-555-0123\",\n    \"address\": \"123 Business Ave, Suite 100\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"country\": \"USA\",\n    \"postal_code\": \"10001\",\n    \"industry\": \"Technology\",\n    \"website\": \"www.acme.com\",\n    \"contact_person\": \"John Smith\",\n    \"contact_position\": \"Procurement Manager\"\n}\n\n// Example 2: Full Client Details\n// {\n//     \"client_name\": \"Global Solutions Inc\",\n//     \"email\": \"info@globalsolutions.com\",\n//     \"phone\": \"+1-555-9876\",\n//     \"address\": \"456 Enterprise Blvd\",\n//     \"city\": \"San Francisco\",\n//     \"state\": \"CA\",\n//     \"country\": \"USA\",\n//     \"postal_code\": \"94105\",\n//     \"industry\": \"Consulting\",\n//     \"website\": \"www.globalsolutions.com\",\n//     \"contact_person\": \"Sarah Johnson\",\n//     \"contact_position\": \"CEO\",\n//     \"tax_id\": \"TAX123456789\",\n//     \"registration_number\": \"REG987654321\",\n//     \"payment_terms\": \"Net 30\",\n//     \"credit_limit\": 100000,\n//     \"status\": \"active\",\n//     \"notes\": \"Premium enterprise client\",\n//     \"social_media\": {\n//         \"linkedin\": \"linkedin.com/company/globalsolutions\",\n//         \"twitter\": \"@globalsolutions\",\n//         \"facebook\": \"fb.com/globalsolutions\"\n//     }\n// }\n\n// Example 3: International Client\n// {\n//     \"client_name\": \"Tech Innovators Ltd\",\n//     \"email\": \"contact@techinnovators.co.uk\",\n//     \"phone\": \"+44-20-7123-4567\",\n//     \"address\": \"10 Innovation Way\",\n//     \"city\": \"London\",\n//     \"state\": \"Greater London\",\n//     \"country\": \"United Kingdom\",\n//     \"postal_code\": \"EC1A 1BB\",\n//     \"industry\": \"Software Development\",\n//     \"website\": \"www.techinnovators.co.uk\",\n//     \"contact_person\": \"James Wilson\",\n//     \"contact_position\": \"Managing Director\",\n//     \"tax_id\": \"GB123456789\",\n//     \"registration_number\": \"UK12345678\",\n//     \"payment_terms\": \"Net 45\",\n//     \"credit_limit\": 75000,\n//     \"status\": \"active\",\n//     \"notes\": \"European market leader\"\n// }",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Clients",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/clients",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Client By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/clients/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Client",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/clients/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "// Example 1: Basic Update\n{\n    \"client_name\": \"Updated Acme Corporation\",\n    \"email\": \"newcontact@acme.com\",\n    \"phone\": \"+1-555-0124\"\n}\n\n// Example 2: Comprehensive Update\n// {\n//     \"client_name\": \"Acme Global Solutions\",\n//     \"email\": \"global@acme.com\",\n//     \"phone\": \"+1-555-9999\",\n//     \"address\": \"789 Corporate Park\",\n//     \"city\": \"Chicago\",\n//     \"state\": \"IL\",\n//     \"industry\": \"Technology Consulting\",\n//     \"website\": \"www.acmeglobal.com\",\n//     \"contact_person\": \"Mary Johnson\",\n//     \"contact_position\": \"Director of Operations\",\n//     \"status\": \"premium\"\n// }\n\n// Example 3: Minimal Update\n// {\n//     \"phone\": \"+1-555-8888\",\n//     \"contact_person\": \"Bob Wilson\"\n// }",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Client",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/clients/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
             "name": "Subscriptions",
             "item": [
                 {

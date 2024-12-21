@@ -11,20 +11,12 @@ const ClientSubscription = sequelize.define('ClientSubscription', {
     client_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'clients',
-            key: 'id'
-        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },
     plan_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'subscription_plans',
-            key: 'id'
-        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },
@@ -52,9 +44,6 @@ const ClientSubscription = sequelize.define('ClientSubscription', {
         type: DataTypes.DATE,
         allowNull: true
     }
-}, {
-    tableName: 'client_subscriptions',
-    timestamps: true
 });
 
 export default ClientSubscription; 

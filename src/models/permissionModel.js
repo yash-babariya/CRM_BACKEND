@@ -34,18 +34,12 @@ const Permission = sequelize.define('Permission', {
         type: DataTypes.STRING,
         allowNull: true
     }
-}, {
-    tableName: 'permissions',
-    timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
 });
 
 // Ensure unique permission_id before creating
 Permission.beforeCreate(async (permission) => {
     let isUnique = false;
     let newId;
-
     while (!isUnique) {
         newId = generateId();
         // Check if this ID already exists

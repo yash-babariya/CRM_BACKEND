@@ -19,10 +19,6 @@ const Designation = sequelize.define('Designation', {
   client_id: {
     type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: 'clients',
-      key: 'id'
-    },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE'
   },
@@ -30,11 +26,6 @@ const Designation = sequelize.define('Designation', {
     type: DataTypes.ENUM('active', 'inactive'),
     defaultValue: 'active'
   }
-}, {
-  tableName: 'designations',
-  timestamps: true,
-  createdAt: 'created_at',
-  updatedAt: 'updated_at'
 });
 
 export default Designation;

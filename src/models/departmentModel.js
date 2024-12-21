@@ -20,10 +20,6 @@ const Department = sequelize.define('Department', {
   client_id: {
     type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: 'clients',
-      key: 'id'
-    },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE'
   },
@@ -31,11 +27,6 @@ const Department = sequelize.define('Department', {
     type: DataTypes.ENUM('active', 'inactive'),
     defaultValue: 'active'
   }
-}, {
-  tableName: 'departments',
-  timestamps: true,
-  createdAt: 'created_at',
-  updatedAt: 'updated_at'
 });
 
 export default Department;

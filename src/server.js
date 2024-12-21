@@ -5,11 +5,9 @@ import sequelize from "./config/db.js";
 import responseHandler from "./utils/responseHandler.js";
 import cors from "cors";
 
-
 const app = express();
 
 app.use(cors({ origin: '*' }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,9 +17,18 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/", routes);
 
-sequelize.sync();
+const startServer = async () => {
+    try {
+        await sequelize.sync({ force: true });
+        console.log('✅ Database synced successfully');
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+        app.listen(PORT, () => {
+            console.log(`✅ Server is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('❌ Error starting server:', error);
+    }
+};
+
+startServer();
 

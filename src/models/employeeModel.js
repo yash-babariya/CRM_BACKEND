@@ -88,11 +88,6 @@ const Employee = sequelize.define('Employee', {
         defaultValue: 'employee',
         allowNull: false
     }
-}, {
-    tableName: 'employees',
-    timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
 });
 
 Employee.beforeCreate(async (employee) => {

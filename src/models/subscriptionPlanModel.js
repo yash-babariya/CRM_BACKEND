@@ -52,9 +52,6 @@ const SubscriptionPlan = sequelize.define('SubscriptionPlan', {
         type: DataTypes.ENUM('active', 'inactive'),
         defaultValue: 'active'
     }
-}, {
-    tableName: 'subscription_plans',
-    timestamps: true
 });
 
 export default SubscriptionPlan; 

@@ -26,10 +26,6 @@ const Client = sequelize.define('Client', {
     role_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'Roles',
-            key: 'role_id'
-        }
     },
     firstName: {
         type: DataTypes.STRING,

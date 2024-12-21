@@ -21,10 +21,6 @@ const RolePermission = sequelize.define('RolePermission', {
     permission_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'permissions',
-            key: 'id'
-        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     },
@@ -32,9 +28,6 @@ const RolePermission = sequelize.define('RolePermission', {
         type: DataTypes.ENUM('active', 'inactive'),
         defaultValue: 'active'
     }
-}, {
-    tableName: 'role_permissions',
-    timestamps: true
 });
 
 export default RolePermission; 

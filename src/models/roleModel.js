@@ -3,7 +3,7 @@ import sequelize from '../config/db.js';
 import generateId from '../middlewares/generatorId.js';
 
 const Role = sequelize.define('Role', {
-    role_id: {
+    id: {
         type: DataTypes.STRING,
         primaryKey: true,
         defaultValue: () => generateId()

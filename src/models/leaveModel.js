@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '../config/database.js';
+import sequelize from '../config/db.js';
 import generateId from '../middlewares/generatorId.js';
 
 class Leave extends Model { }

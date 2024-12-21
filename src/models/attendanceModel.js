@@ -9,7 +9,7 @@ const Attendance = sequelize.define('Attendance', {
         unique: true,
         defaultValue: () => generateId()
     },
-    employee: {
+    employee_id: {
         type: DataTypes.STRING,
         allowNull: false
     },

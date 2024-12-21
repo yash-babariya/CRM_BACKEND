@@ -11,12 +11,12 @@ export default {
             limit: Joi.number().optional(),
             start_date: Joi.date().optional(),
             end_date: Joi.date().optional(),
-            user_id: Joi.string().optional()
+            employee_id: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
-            const { page = 1, limit = 10, start_date, end_date, user_id } = req.query;
+            const { page = 1, limit = 10, start_date, end_date, employee_id } = req.query;
 
             const whereClause = {};
             if (start_date && end_date) {
@@ -24,8 +24,8 @@ export default {
                     [Op.between]: [start_date, end_date]
                 };
             }
-            if (user_id) {
-                whereClause.user_id = user_id;
+            if (employee_id) {
+                whereClause.employee_id = employee_id;
             }
 
             const attendances = await Attendance.findAll({

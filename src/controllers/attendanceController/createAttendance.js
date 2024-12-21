@@ -7,27 +7,27 @@ import responseHandler from "../../utils/responseHandler.js";
 export default {
     validator: validator({
         body: Joi.object({
-            user_id: Joi.string().required(),
+            employee: Joi.string().required(),
             date: Joi.date().required(),
-            check_in: Joi.string().required(),
-            check_out: Joi.string().optional(),
+            checkIn: Joi.string().required(),
+            checkOut: Joi.string().optional(),
             status: Joi.string().valid('present', 'absent', 'half-day').required(),
             notes: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
-            const { user_id, date, check_in, check_out, status, notes } = req.body;
+            const { employee, date, check_in, check_out, status, notes } = req.body;
 
             // Check if user exists
-            const user = await User.findByPk(user_id);
+            const user = await User.findByPk(employee);
             if (!user) {
                 return responseHandler.notFound(res, "User not found");
             }
 
             // Check if attendance already exists for this date
             const existingAttendance = await Attendance.findOne({
-                where: { user_id, date }
+                where: { employee, date }
             });
 
             if (existingAttendance) {
@@ -35,7 +35,7 @@ export default {
             }
 
             const attendance = await Attendance.create({
-                user_id,
+                employee,
                 date,
                 check_in,
                 check_out,

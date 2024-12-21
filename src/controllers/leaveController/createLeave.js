@@ -3,11 +3,12 @@ import Leave from "../../models/leaveModel.js";
 import User from "../../models/userModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
+import { Op } from "sequelize";
 
 export default {
     validator: validator({
         body: Joi.object({
-            employee: Joi.string().required(),
+            employee_id: Joi.string().required(),
             startDate: Joi.date().required(),
             endDate: Joi.date().required(),
             leaveType: Joi.string().valid('sick', 'casual', 'annual', 'other').required(),
@@ -17,18 +18,18 @@ export default {
     }),
     handler: async (req, res) => {
         try {
-            const { employee, startDate, endDate, leaveType, reason, status } = req.body;
+            const { employee_id, startDate, endDate, leaveType, reason, status } = req.body;
 
             // Check if user exists
-            const user = await User.findByPk(employee);
+            const user = await User.findByPk(employee_id);
             if (!user) {
-                return responseHandler.notFound(res, "User not found");
+                return responseHandler.notFound(res, "Employee not found");
             }
 
             // Check for overlapping leaves
             const overlappingLeave = await Leave.findOne({
                 where: {
-                    employee,
+                    employee_id,
                     [Op.or]: [
                         {
                             startDate: {
@@ -49,7 +50,7 @@ export default {
             }
 
             const leave = await Leave.create({
-                employee,
+                employee_id,
                 startDate,
                 endDate,
                 leaveType,

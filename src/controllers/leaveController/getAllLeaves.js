@@ -10,28 +10,35 @@ export default {
             page: Joi.number().optional(),
             limit: Joi.number().optional(),
             status: Joi.string().valid('pending', 'approved', 'rejected').optional(),
-            user_id: Joi.string().optional()
+            employee_id: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
-            const { page = 1, limit = 10, status, user_id } = req.query;
+            const { page = 1, limit = 10, status, employee_id } = req.query;
 
             const whereClause = {};
             if (status) whereClause.status = status;
-            if (user_id) whereClause.user_id = user_id;
+            if (employee_id) whereClause.employee_id = employee_id;
 
-            const leaves = await Leave.findAll({
+            const leaves = await Leave.findAndCountAll({
                 where: whereClause,
                 include: [{
                     model: User,
+                    as: 'employee',
                     attributes: ['username', 'email']
                 }],
                 offset: (page - 1) * limit,
-                limit: parseInt(limit)
+                limit: parseInt(limit),
+                order: [['createdAt', 'DESC']]
             });
 
-            responseHandler.success(res, "Leaves fetched successfully", leaves);
+            responseHandler.success(res, "Leaves fetched successfully", {
+                leaves: leaves.rows,
+                total: leaves.count,
+                page: parseInt(page),
+                totalPages: Math.ceil(leaves.count / limit)
+            });
         } catch (error) {
             console.log(error);
             responseHandler.error(res, error.message);

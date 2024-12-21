@@ -8,7 +8,7 @@ Leave.init({
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
-        defaultValue: generateId
+        defaultValue: () => generateId()
     },
     employee_id: {
         type: DataTypes.STRING,

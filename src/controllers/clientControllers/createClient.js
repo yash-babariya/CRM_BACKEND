@@ -44,7 +44,7 @@ export default {
             // Find or create the client role
             const [role, created] = await Role.findOrCreate({
                 where: { role_name: 'client' },
-                defaults: { role_id: generateId() }
+                defaults: { id: generateId() }
             });
 
             // Hash password
@@ -55,7 +55,7 @@ export default {
                 username,
                 password: hashedPassword,
                 email,
-                role_id: role.role_id
+                role_id: role.id
             });
 
             responseHandler.created(res, "Client created successfully", client);

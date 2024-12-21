@@ -11,14 +11,10 @@ const ClientSubscription = sequelize.define('ClientSubscription', {
     client_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
     },
     plan_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
     },
     start_date: {
         type: DataTypes.DATE,

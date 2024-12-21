@@ -7,20 +7,20 @@ import responseHandler from "../../utils/responseHandler.js";
 export default {
     validator: validator({
         body: Joi.object({
-            user_id: Joi.string().required(),
-            start_date: Joi.date().required(),
-            end_date: Joi.date().required(),
-            leave_type: Joi.string().valid('sick', 'casual', 'annual', 'other').required(),
+            employee: Joi.string().required(),
+            startDate: Joi.date().required(),
+            endDate: Joi.date().required(),
+            leaveType: Joi.string().valid('sick', 'casual', 'annual', 'other').required(),
             reason: Joi.string().required(),
             status: Joi.string().valid('pending', 'approved', 'rejected').default('pending')
         })
     }),
     handler: async (req, res) => {
         try {
-            const { user_id, start_date, end_date, leave_type, reason, status } = req.body;
+            const { employee, startDate, endDate, leaveType, reason, status } = req.body;
 
             // Check if user exists
-            const user = await User.findByPk(user_id);
+            const user = await User.findByPk(employee);
             if (!user) {
                 return responseHandler.notFound(res, "User not found");
             }
@@ -28,16 +28,16 @@ export default {
             // Check for overlapping leaves
             const overlappingLeave = await Leave.findOne({
                 where: {
-                    user_id,
+                    employee,
                     [Op.or]: [
                         {
-                            start_date: {
-                                [Op.between]: [start_date, end_date]
+                            startDate: {
+                                [Op.between]: [startDate, endDate]
                             }
                         },
                         {
-                            end_date: {
-                                [Op.between]: [start_date, end_date]
+                            endDate: {
+                                [Op.between]: [startDate, endDate]
                             }
                         }
                     ]
@@ -49,10 +49,10 @@ export default {
             }
 
             const leave = await Leave.create({
-                user_id,
-                start_date,
-                end_date,
-                leave_type,
+                employee,
+                startDate,
+                endDate,
+                leaveType,
                 reason,
                 status,
                 created_by: req.user?.id

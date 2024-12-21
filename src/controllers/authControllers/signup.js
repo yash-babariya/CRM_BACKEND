@@ -21,7 +21,6 @@ export default {
                     'string.min': 'Password must be at least 8 characters long',
                     'string.empty': 'Password is required'
                 }),
-            role_name: Joi.string().optional(),
             client_id: Joi.string().optional()
         }),
     }),
@@ -47,7 +46,7 @@ export default {
             // Find or create the role
             const [role, created] = await Role.findOrCreate({
                 where: { role_name: role_name || 'user' },
-                defaults: { role_id: generateId() }
+                defaults: { id: generateId() }
             });
 
             // Hash the password
@@ -58,7 +57,7 @@ export default {
                 username,
                 email,
                 password: hashedPassword,
-                role_id: role.role_id, // Use the role_id from the found or created role
+                role_id: role.id, // Use the role_id from the found or created role
             });
 
             responseHandler.created(res, "User created successfully", user);

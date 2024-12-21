@@ -19,63 +19,60 @@ export default {
         try {
             const { login, password } = req.body;
 
-            // Find user by email or username
-            const user = await User.findOne({
-                where: {
-                    [Op.or]: [
-                        { email: login },
-                        { username: login }
-                    ]
-                }
-            });
-
-            // If user not found, try finding client
-            if (!user) {
-                const client = await Client.findOne({
+            // Find user and client simultaneously
+            const [user, client] = await Promise.all([
+                User.findOne({
                     where: {
                         [Op.or]: [
                             { email: login },
                             { username: login }
                         ]
                     }
-                });
+                }),
+                Client.findOne({
+                    where: {
+                        [Op.or]: [
+                            { email: login },
+                            { username: login }
+                        ]
+                    }
+                })
+            ]);
 
-                if (!client) {
-                    return responseHandler.error(res, "User not found");
+            // If neither user nor client found
+            if (!user && !client) {
+                return responseHandler.error(res, "Account not found");
+            }
+
+            // Check user credentials if user exists
+            if (user) {
+                const isPasswordCorrect = await bcrypt.compare(password, user.password);
+                if (isPasswordCorrect) {
+                    const token = jwt.sign(
+                        { userId: user.id, email: user.email, role_id: user.role_id },
+                        JWT_SECRET,
+                        { expiresIn: '24h' }
+                    );
+                    return responseHandler.success(res, "Login successful", { token, user });
                 }
+            }
 
-                // Check if the password is correct for client
+            // Check client credentials if client exists
+            if (client) {
                 const isPasswordCorrect = await bcrypt.compare(password, client.password);
-
-                if (!isPasswordCorrect) {
-                    return responseHandler.error(res, "Invalid client password");
+                if (isPasswordCorrect) {
+                    const token = jwt.sign(
+                        { clientId: client.id, email: client.email, role: 'client' },
+                        JWT_SECRET,
+                        { expiresIn: '24h' }
+                    );
+                    return responseHandler.success(res, "Login successful", { token, client });
                 }
-
-                // Generate JWT token for client
-                const token = jwt.sign(
-                    { clientId: client.id, email: client.email, role: 'client' },
-                    JWT_SECRET,
-                    { expiresIn: '24h' }
-                );
-
-                return responseHandler.success(res, "Login successful", { token, client });
             }
 
-            // Check if the password is correct for user
-            const isPasswordCorrect = await bcrypt.compare(password, user.password);
+            // If we reach here, password was incorrect for both accounts
+            return responseHandler.error(res, "Invalid password");
 
-            if (!isPasswordCorrect) {
-                return responseHandler.error(res, "Invalid user password");
-            }
-
-            // Generate JWT token for user
-            const token = jwt.sign(
-                { userId: user.id, email: user.email, role_id: user.role_id },
-                JWT_SECRET,
-                { expiresIn: '24h' }
-            );
-
-            return responseHandler.success(res, "Login successful", { token, user });
         } catch (error) {
             return responseHandler.error(res, "An error occurred during login");
         }

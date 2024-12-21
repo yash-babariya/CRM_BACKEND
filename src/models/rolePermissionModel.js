@@ -15,14 +15,12 @@ const RolePermission = sequelize.define('RolePermission', {
             model: 'roles',
             key: 'id'
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+
     },
     permission_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+
     },
     status: {
         type: DataTypes.ENUM('active', 'inactive'),

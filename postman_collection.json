@@ -6,16 +6,16 @@
     },
     "item": [
         {
-            "name": "Auth",
+            "name": "Super Admin Auth",
             "item": [
                 {
-                    "name": "Login",
+                    "name": "Super Admin Login",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/login",
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Super Admin Login\n{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}\n\n// Example 2: Client Login\n// {\n//     \"login\": \"yash@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 3: Employee Login\n// {\n//     \"login\": \"yashbabariya\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 4: Manager Login\n// {\n//     \"login\": \"yashbabariyaeklera\",\n//     \"password\": \"Yash@2525\"\n// }",
+                            "raw": "{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -25,13 +25,50 @@
                     }
                 },
                 {
-                    "name": "Signup",
+                    "name": "Super Admin Signup",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/super-admin/signup",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\",\n    \"secret_key\": \"{{SUPER_ADMIN_SECRET_KEY}}\" \n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Normal User Auth",
+            "item": [
+                {
+                    "name": "Normal User Login",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/auth/login",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"login\": \"user@gmail.com\",\n    \"password\": \"User@2525\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Normal User Signup",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/signup",
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Super Admin Signup\n{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\",\n    \"role_name\": \"super-admin\"\n}\n\n// Example 2: Client Signup\n// {\n//     \"username\": \"yashbabariya\",\n//     \"email\": \"yash@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }\n\n// Example 3: Employee Signup\n// {\n//     \"username\": \"yashbabariyaeklera\",\n//     \"email\": \"yashbabariyaeklera@gmail.com\",\n//     \"password\": \"Yash@2525\"\n// }",
+                            "raw": "{\n    \"username\": \"normaluser\",\n    \"email\": \"user@gmail.com\",\n    \"password\": \"User@2525\"   }",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -56,7 +93,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Basic Client\n{\n    \"client_name\": \"Acme Corporation\",\n    \"email\": \"contact@acme.com\",\n    \"phone\": \"+1-555-0123\",\n    \"address\": \"123 Business Ave, Suite 100\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"country\": \"USA\",\n    \"postal_code\": \"10001\",\n    \"industry\": \"Technology\",\n    \"website\": \"www.acme.com\",\n    \"contact_person\": \"John Smith\",\n    \"contact_position\": \"Procurement Manager\"\n}\n\n// Example 2: Full Client Details\n// {\n//     \"client_name\": \"Global Solutions Inc\",\n//     \"email\": \"info@globalsolutions.com\",\n//     \"phone\": \"+1-555-9876\",\n//     \"address\": \"456 Enterprise Blvd\",\n//     \"city\": \"San Francisco\",\n//     \"state\": \"CA\",\n//     \"country\": \"USA\",\n//     \"postal_code\": \"94105\",\n//     \"industry\": \"Consulting\",\n//     \"website\": \"www.globalsolutions.com\",\n//     \"contact_person\": \"Sarah Johnson\",\n//     \"contact_position\": \"CEO\",\n//     \"tax_id\": \"TAX123456789\",\n//     \"registration_number\": \"REG987654321\",\n//     \"payment_terms\": \"Net 30\",\n//     \"credit_limit\": 100000,\n//     \"status\": \"active\",\n//     \"notes\": \"Premium enterprise client\",\n//     \"social_media\": {\n//         \"linkedin\": \"linkedin.com/company/globalsolutions\",\n//         \"twitter\": \"@globalsolutions\",\n//         \"facebook\": \"fb.com/globalsolutions\"\n//     }\n// }\n\n// Example 3: International Client\n// {\n//     \"client_name\": \"Tech Innovators Ltd\",\n//     \"email\": \"contact@techinnovators.co.uk\",\n//     \"phone\": \"+44-20-7123-4567\",\n//     \"address\": \"10 Innovation Way\",\n//     \"city\": \"London\",\n//     \"state\": \"Greater London\",\n//     \"country\": \"United Kingdom\",\n//     \"postal_code\": \"EC1A 1BB\",\n//     \"industry\": \"Software Development\",\n//     \"website\": \"www.techinnovators.co.uk\",\n//     \"contact_person\": \"James Wilson\",\n//     \"contact_position\": \"Managing Director\",\n//     \"tax_id\": \"GB123456789\",\n//     \"registration_number\": \"UK12345678\",\n//     \"payment_terms\": \"Net 45\",\n//     \"credit_limit\": 75000,\n//     \"status\": \"active\",\n//     \"notes\": \"European market leader\"\n// }",
+                            "raw": "{\n    \"username\": \"acmecorp\",\n    \"email\": \"contact@acme.com\",\n    \"password\": \"SecurePass123!\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

@@ -10,3 +10,4 @@ export const DB_HOST = process.env.DB_HOST;
 export const TIMEZONE = process.env.TIMEZONE;
 export const JWT_SECRET = process.env.JWT_SECRET;
 export const CLIENT_URL = process.env.CLIENT_URL;
+export const SUPER_ADMIN_SECRET_KEY = process.env.SUPER_ADMIN_SECRET_KEY;

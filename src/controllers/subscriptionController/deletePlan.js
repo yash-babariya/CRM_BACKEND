@@ -20,7 +20,7 @@ export default {
 
             await plan.destroy();
 
-            responseHandler.success(res, "Plan deleted successfully");
+            responseHandler.success(res, "Plan deleted successfully", plan);
         } catch (error) {
             console.log(error);
             responseHandler.error(res, error.message);

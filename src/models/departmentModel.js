@@ -20,8 +20,6 @@ const Department = sequelize.define('Department', {
   client_id: {
     type: DataTypes.STRING,
     allowNull: false,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
   },
   status: {
     type: DataTypes.ENUM('active', 'inactive'),

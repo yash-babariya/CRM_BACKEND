@@ -1,21 +1,22 @@
 {
     "info": {
         "_postman_id": "1b74d3b6-773b-493b-9d1e-6d0ca98bcc22",
-        "name": "CRM System",
-        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+        "name": "CRM Backend",
+        "description": "Complete API collection for CRM Backend System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
-            "name": "Super Admin Auth",
+            "name": "Super Admin",
             "item": [
                 {
-                    "name": "Super Admin Login",
+                    "name": "Login",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/login",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\"\n}",
+                            "raw": "{\n    \"login\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\" \n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -25,13 +26,13 @@
                     }
                 },
                 {
-                    "name": "Super Admin Signup",
+                    "name": "Signup",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/super-admin/signup",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\",\n    \"secret_key\": \"{{SUPER_ADMIN_SECRET_KEY}}\" \n}",
+                            "raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"Admin@2525\",\n    \"secret_key\": \"{{SUPER_ADMIN_SECRET_KEY}}\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -43,16 +44,20 @@
             ]
         },
         {
-            "name": "Normal User Auth",
+            "name": "Client",
             "item": [
                 {
-                    "name": "Normal User Login",
+                    "name": "Login",
                     "request": {
                         "method": "POST",
                         "url": "{{base}}/auth/login",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"login\": \"user@gmail.com\",\n    \"password\": \"User@2525\"\n}",
+                            "raw": "{\n    \"login\": \"client@company.com\",\n    \"password\": \"Client@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -62,13 +67,17 @@
                     }
                 },
                 {
-                    "name": "Normal User Signup",
+                    "name": "Signup",
                     "request": {
                         "method": "POST",
-                        "url": "{{base}}/auth/signup",
+                        "url": "{{base}}/clients",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"username\": \"normaluser\",\n    \"email\": \"user@gmail.com\",\n    \"password\": \"User@2525\"   }",
+                            "raw": "{\n    \"username\": \"client\",\n    \"email\": \"client@company.com\",\n    \"password\": \"Client@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -80,20 +89,20 @@
             ]
         },
         {
-            "name": "Clients",
+            "name": "Normal User",
             "item": [
                 {
-                    "name": "Create Client",
+                    "name": "Login",
                     "request": {
                         "method": "POST",
-                        "url": "{{base}}/clients",
+                        "url": "{{base}}/auth/login",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"username\": \"acmecorp\",\n    \"email\": \"contact@acme.com\",\n    \"password\": \"SecurePass123!\"\n}",
+                            "raw": "{\n    \"login\": \"user@example.com\",\n    \"password\": \"User@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -103,55 +112,22 @@
                     }
                 },
                 {
-                    "name": "Get All Clients",
+                    "name": "Signup",
                     "request": {
-                        "method": "GET",
-                        "url": "{{base}}/clients",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        }
-                    }
-                },
-                {
-                    "name": "Get Client By ID",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base}}/clients/:id",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        }
-                    }
-                },
-                {
-                    "name": "Update Client",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base}}/clients/:id",
+                        "method": "POST",
+                        "url": "{{base}}/auth/signup",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Basic Update\n{\n    \"client_name\": \"Updated Acme Corporation\",\n    \"email\": \"newcontact@acme.com\",\n    \"phone\": \"+1-555-0124\"\n}\n\n// Example 2: Comprehensive Update\n// {\n//     \"client_name\": \"Acme Global Solutions\",\n//     \"email\": \"global@acme.com\",\n//     \"phone\": \"+1-555-9999\",\n//     \"address\": \"789 Corporate Park\",\n//     \"city\": \"Chicago\",\n//     \"state\": \"IL\",\n//     \"industry\": \"Technology Consulting\",\n//     \"website\": \"www.acmeglobal.com\",\n//     \"contact_person\": \"Mary Johnson\",\n//     \"contact_position\": \"Director of Operations\",\n//     \"status\": \"premium\"\n// }\n\n// Example 3: Minimal Update\n// {\n//     \"phone\": \"+1-555-8888\",\n//     \"contact_person\": \"Bob Wilson\"\n// }",
+                            "raw": "{\n    \"username\": \"user\",\n    \"email\": \"user@example.com\",\n    \"password\": \"User@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
-                        }
-                    }
-                },
-                {
-                    "name": "Delete Client",
-                    "request": {
-                        "method": "DELETE",
-                        "url": "{{base}}/clients/:id",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
                         }
                     }
                 }
@@ -160,26 +136,6 @@
         {
             "name": "Subscriptions",
             "item": [
-                {
-                    "name": "Create Plan",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        },
-                        "method": "POST",
-                        "url": "{{base}}/subscriptions/plans",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"gold\",\n    \"price\": 499.99,\n    \"billing_cycle\": \"yearly\",\n    \"trial_days\": 14,\n    \"max_users\": 50,\n    \"max_customers\": 1000,\n    \"max_vendors\": 100,\n    \"max_clients\": 50,\n    \"storage_limit\": 5120,\n    \"features\": {\n        \"account\": true,\n        \"crm\": true,\n        \"hrm\": true,\n        \"project\": true,\n        \"inventory\": true,\n        \"reports\": true\n    }\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    }
-                },
                 {
                     "name": "Get All Plans",
                     "request": {
@@ -192,13 +148,22 @@
                     }
                 },
                 {
-                    "name": "Get Plan By ID",
+                    "name": "Create Plan",
                     "request": {
-                        "method": "GET",
-                        "url": "{{base}}/subscriptions/plans/:id",
+                        "method": "POST",
+                        "url": "{{base}}/subscriptions/plans",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Basic Plan\",\n    \"price\": 29.99,\n    \"features\": [\n        \"feature1\",\n        \"feature2\"\n    ],\n    \"duration\": 30\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
                         }
                     }
                 },
@@ -213,10 +178,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "price": 600,
-                                "max_users": 30
-                            },
+                            "raw": "{\n    \"name\": \"Updated Plan\",\n    \"price\": 39.99\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -247,9 +209,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "plan_id": "plan_id_here"
-                            },
+                            "raw": "{\n    \"plan_id\": \"plan_id_here\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -307,7 +267,7 @@
                         "url": "{{base}}/employees",
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Software Developer\n{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"email\": \"john.smith@company.com\",\n    \"phone\": \"+1-234-567-8901\",\n    \"address\": \"123 Dev Street\",\n    \"department\": \"IT_DEPT_ID\",\n    \"designation\": \"SOFTWARE_DEV_ID\",\n    \"salary\": 85000\n}\n\n// Example 2: HR Manager\n// {\n//     \"firstName\": \"Sarah\",\n//     \"lastName\": \"Johnson\",\n//     \"email\": \"sarah.j@company.com\",\n//     \"phone\": \"+1-234-567-8902\",\n//     \"address\": \"456 HR Avenue\",\n//     \"department\": \"HR_DEPT_ID\",\n//     \"designation\": \"HR_MANAGER_ID\",\n//     \"salary\": 95000\n// }\n\n// Example 3: Sales Executive\n// {\n//     \"firstName\": \"Michael\",\n//     \"lastName\": \"Brown\",\n//     \"email\": \"michael.b@company.com\",\n//     \"phone\": \"+1-234-567-8903\",\n//     \"address\": \"789 Sales Road\",\n//     \"department\": \"SALES_DEPT_ID\",\n//     \"designation\": \"SALES_EXEC_ID\",\n//     \"salary\": 75000\n// }",
+                            "raw": "{\n    \"username\": \"johnsmith\",\n    \"email\": \"john.smith@company.com\",\n    \"password\": \"Employee@123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -349,7 +309,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Update basic info\n{\n    \"firstName\": \"John Updated\",\n    \"salary\": 55000\n}\n\n// Example 2: Update multiple fields\n// {\n//     \"firstName\": \"John Updated\",\n//     \"lastName\": \"Smith Updated\", \n//     \"email\": \"john.updated@company.com\",\n//     \"phone\": \"+1-234-567-8904\",\n//     \"address\": \"456 Updated Street\",\n//     \"department\": \"NEW_DEPT_ID\",\n//     \"designation\": \"SENIOR_DEV_ID\",\n//     \"salary\": 95000\n// }\n\n// Example 3: Update contact info only\n// {\n//     \"email\": \"new.email@company.com\",\n//     \"phone\": \"+1-234-567-8905\",\n//     \"address\": \"789 New Address Lane\"\n// }",
+                            "raw": "{\n    \"username\": \"johnsmith_updated\",\n    \"email\": \"john.updated@company.com\",\n    \"firstName\": \"John Updated\",\n    \"lastName\": \"Smith Updated\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -385,7 +345,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Basic department creation\n{\n    \"name\": \"Information Technology\",\n    \"description\": \"Software Development and IT Operations\",\n    \"client_id\": \"CLIENT_ID_HERE\"\n}\n\n// Example 2: Department with detailed description\n// {\n//     \"name\": \"Human Resources\",\n//     \"description\": \"Handles employee relations, recruitment, and workplace policies\",\n//     \"client_id\": \"CLIENT_ID_HERE\"\n// }\n\n// Example 3: Department with minimal info\n// {\n//     \"name\": \"Sales\",\n//     \"description\": \"Sales and Marketing\",\n//     \"client_id\": \"CLIENT_ID_HERE\"\n// }",
+                            "raw": "{\n    \"name\": \"Information Technology\",\n    \"description\": \"Software Development and IT Operations\",\n    \"client_id\": \"CLIENT_ID_HERE\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -406,6 +366,17 @@
                     }
                 },
                 {
+                    "name": "Get Department By ID",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/departments/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
                     "name": "Update Department",
                     "request": {
                         "method": "PUT",
@@ -416,10 +387,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "name": "IT Updated",
-                                "description": "Updated description"
-                            },
+                            "raw": "{\n    \"name\": \"Updated IT Department\",\n    \"description\": \"Updated description\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -447,15 +415,15 @@
                 {
                     "name": "Create Designation",
                     "request": {
+                        "method": "POST",
+                        "url": "{{base}}/designations",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
-                        "method": "POST",
-                        "url": "{{base}}/designations",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Software Engineer\", // designation name\n    \"description\": \"Senior Software Developer Position\", // role description\n    \"client_id\": \"CLIENT_ID_HERE\", // unique client identifier\n    // Example values:\n    // \"name\": \"Full Stack Developer\",\n    // \"description\": \"Full stack web development role\", \n    // \"client_id\": \"client_123\"\n}",
+                            "raw": "{\n    \"title\": \"Software Engineer\",\n    \"description\": \"Develops and maintains software applications\",\n    \"department_id\": \"DEPT_ID_HERE\",\n    \"level\": \"senior\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -467,26 +435,37 @@
                 {
                     "name": "Get All Designations",
                     "request": {
+                        "method": "GET",
+                        "url": "{{base}}/designations",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
-                        },
+                        }
+                    }
+                },
+                {
+                    "name": "Get Designation By ID",
+                    "request": {
                         "method": "GET",
-                        "url": "{{base}}/designations"
+                        "url": "{{base}}/designations/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
                     }
                 },
                 {
                     "name": "Update Designation",
                     "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/designations/:id",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
-                        "method": "PUT",
-                        "url": "{{base}}/designations/:id",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Senior Software Engineer\", // designation name\n    \"description\": \"Updated role description\", // role description\n    \"client_id\": \"CLIENT_ID_HERE\" // unique client identifier\n    // Example values:\n    // \"name\": \"Technical Lead\",\n    // \"description\": \"Lead technical projects and mentor team members\",\n    // \"client_id\": \"client_456\"\n}",
+                            "raw": "{\n    \"title\": \"Senior Software Engineer\",\n    \"level\": \"principal\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -512,67 +491,74 @@
             "name": "Attendance",
             "item": [
                 {
-                    "name": "Mark Attendance",
+                    "name": "Clock In",
                     "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        },
                         "method": "POST",
-                        "url": "{{base}}/attendance",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"user_id\": \"USER_ID_HERE\", // Unique identifier for the user\n    \"date\": \"2024-03-20\", // Date in YYYY-MM-DD format\n    \"check_in\": \"09:00\", // Check-in time in 24-hour format (HH:mm)\n    \"check_out\": \"18:00\", // Check-out time in 24-hour format (HH:mm)\n    \"status\": \"present\", // Status can be: present, absent, half-day, leave\n    \"notes\": \"Regular working day\" // Optional notes about attendance\n    // Example values:\n    // \"user_id\": \"usr_123\",\n    // \"date\": \"2024-03-21\",\n    // \"check_in\": \"08:30\",\n    // \"check_out\": \"17:30\",\n    // \"status\": \"half-day\",\n    // \"notes\": \"Left early due to doctor appointment\"\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "Get All Attendance",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base}}/attendance",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        }
-                    }
-                },
-                {
-                    "name": "Get Attendance By ID",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base}}/attendance/:id",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        }
-                    }
-                },
-                {
-                    "name": "Update Attendance",
-                    "request": {
-                        "method": "PUT",
-                        "url": "{{base}}/attendance/:id",
+                        "url": "{{base}}/attendance/clock-in",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "check_out": "17:00",
-                                "status": "present"
-                            },
+                            "raw": "{\n    \"employee_id\": \"EMPLOYEE_ID_HERE\",\n    \"location\": \"Office\",\n    \"notes\": \"Regular day at office\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
+                        }
+                    }
+                },
+                {
+                    "name": "Clock Out",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/attendance/clock-out",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"employee_id\": \"EMPLOYEE_ID_HERE\",\n    \"notes\": \"Day complete\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Attendance History",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/attendance/history/:employee_id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "query": [
+                            {
+                                "key": "start_date",
+                                "value": "2023-01-01"
+                            },
+                            {
+                                "key": "end_date",
+                                "value": "2023-12-31"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get Today's Attendance",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/attendance/today",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
                         }
                     }
                 }
@@ -585,14 +571,14 @@
                     "name": "Apply Leave",
                     "request": {
                         "method": "POST",
-                        "url": "{{base}}/leaves",
+                        "url": "{{base}}/leaves/apply",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "// Example 1: Sick Leave\n{\n    \"employee\": \"EMP_ID_HERE\",\n    \"startDate\": \"2024-04-01\",\n    \"endDate\": \"2024-04-02\",\n    \"leaveType\": \"sick\",\n    \"reason\": \"Medical appointment\",\n    \"status\": \"pending\"\n}\n\n// Example 2: Annual Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-05-15\",\n//     \"endDate\": \"2024-05-20\",\n//     \"leaveType\": \"annual\",\n//     \"reason\": \"Family vacation\",\n//     \"status\": \"pending\"\n// }\n\n// Example 3: Half Day Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-04-10\",\n//     \"endDate\": \"2024-04-10\",\n//     \"leaveType\": \"other\",\n//     \"reason\": \"Personal work\",\n//     \"status\": \"pending\",\n//     \"isHalfDay\": true\n// }\n\n// Example 4: Maternity Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-06-01\",\n//     \"endDate\": \"2024-09-01\",\n//     \"leaveType\": \"maternity\",\n//     \"reason\": \"Maternity leave\",\n//     \"status\": \"pending\",\n//     \"documents\": [\"medical_certificate.pdf\"]\n// }\n\n// Example 5: Emergency Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-04-15\",\n//     \"endDate\": \"2024-04-15\",\n//     \"leaveType\": \"emergency\",\n//     \"reason\": \"Family emergency\",\n//     \"status\": \"pending\",\n//     \"urgent\": true\n// }\n\n// Example 6: Study Leave\n// {\n//     \"employee\": \"EMP_ID_HERE\",\n//     \"startDate\": \"2024-07-01\",\n//     \"endDate\": \"2024-07-05\",\n//     \"leaveType\": \"study\",\n//     \"reason\": \"Final examinations\",\n//     \"status\": \"pending\",\n//     \"documents\": [\"exam_schedule.pdf\"]\n// }",
+                            "raw": "{\n    \"employee_id\": \"EMPLOYEE_ID_HERE\",\n    \"start_date\": \"2023-12-25\",\n    \"end_date\": \"2023-12-26\",\n    \"type\": \"vacation\",\n    \"reason\": \"Christmas holiday\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -602,42 +588,34 @@
                     }
                 },
                 {
-                    "name": "Get All Leaves",
+                    "name": "Get Leave Requests",
                     "request": {
                         "method": "GET",
-                        "url": "{{base}}/leaves",
+                        "url": "{{base}}/leaves/requests",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
-                        }
+                        },
+                        "query": [
+                            {
+                                "key": "status",
+                                "value": "pending"
+                            }
+                        ]
                     }
                 },
                 {
-                    "name": "Get Leave By ID",
-                    "request": {
-                        "method": "GET",
-                        "url": "{{base}}/leaves/:id",
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": "{{token}}"
-                        }
-                    }
-                },
-                {
-                    "name": "Update Leave",
+                    "name": "Approve/Reject Leave",
                     "request": {
                         "method": "PUT",
-                        "url": "{{base}}/leaves/:id",
+                        "url": "{{base}}/leaves/:id/status",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": {
-                                "status": "approved",
-                                "admin_remarks": "Approved"
-                            },
+                            "raw": "{\n    \"status\": \"approved\",\n    \"comments\": \"Approved as requested\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -647,13 +625,100 @@
                     }
                 },
                 {
-                    "name": "Delete Leave",
+                    "name": "Get Leave Balance",
                     "request": {
-                        "method": "DELETE",
-                        "url": "{{base}}/leaves/:id",
+                        "method": "GET",
+                        "url": "{{base}}/leaves/balance/:employee_id",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Roles & Permissions",
+            "item": [
+                {
+                    "name": "Create Role",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/roles",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Team Lead\",\n    \"description\": \"Team leadership role\",\n    \"permissions\": [\"manage_team\", \"approve_leaves\", \"view_reports\"]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Roles",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/roles",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Role",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/roles/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"permissions\": [\"manage_team\", \"approve_leaves\", \"view_reports\", \"edit_team_info\"]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Role",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/roles/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Assign Role to Employee",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/roles/assign",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"employee_id\": \"EMPLOYEE_ID_HERE\",\n    \"role_id\": \"ROLE_ID_HERE\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
                         }
                     }
                 }
@@ -666,14 +731,14 @@
                     "name": "Create Announcement",
                     "request": {
                         "method": "POST",
-                        "url": "{{base}}/announcement-event-setup",
+                        "url": "{{base}}/announcements",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"title\": \"Quarterly Team Meeting\",\n    \"description\": \"Join us for the Q1 2024 review and Q2 planning session. Location: Main Conference Room. Agenda will be shared via email.\"\n    // Example additional fields:\n    // \"date\": \"2024-03-15\",\n    // \"time\": \"10:00\",\n    // \"duration\": \"2 hours\",\n    // \"organizer\": \"John Smith\",\n    // \"department\": \"All Departments\",\n    // \"priority\": \"High\",\n    // \"attachments\": [\"agenda.pdf\", \"q1-report.xlsx\"],\n    // \"requiredAttendees\": [\"team-leads@company.com\", \"managers@company.com\"],\n    // \"optionalAttendees\": [\"all-staff@company.com\"],\n    // \"meetingLink\": \"https://meet.company.com/quarterly-meeting\"\n}",
+                            "raw": "{\n    \"title\": \"Company Meeting\",\n    \"content\": \"Annual company meeting next week\",\n    \"priority\": \"high\",\n    \"target_audience\": [\"all_employees\"],\n    \"valid_until\": \"2023-12-31\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -686,7 +751,38 @@
                     "name": "Get All Announcements",
                     "request": {
                         "method": "GET",
-                        "url": "{{base}}/announcement-event-setup",
+                        "url": "{{base}}/announcements",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Announcement",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/announcements/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"Updated announcement content\",\n    \"priority\": \"medium\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Announcement",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/announcements/:id",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
@@ -702,13 +798,14 @@
                     "name": "Create Event",
                     "request": {
                         "method": "POST",
-                        "url": "{{base}}/announcement-event-setup",
+                        "url": "{{base}}/events",
                         "auth": {
                             "type": "bearer",
                             "bearer": "{{token}}"
                         },
                         "body": {
                             "mode": "raw",
+                            "raw": "{\n    \"title\": \"Team Building Workshop\",\n    \"description\": \"Annual team building event\",\n    \"date\": \"2023-12-15\",\n    \"time\": \"09:00\",\n    \"location\": \"Conference Room A\",\n    \"participants\": [\"DEPT_ID_1\", \"DEPT_ID_2\"]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -716,20 +813,81 @@
                             }
                         }
                     }
+                },
+                {
+                    "name": "Get All Events",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/events",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Event",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/events/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"time\": \"10:00\",\n    \"location\": \"Conference Room B\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Event",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/events/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
                 }
             ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "if (pm.environment.get('token_expires_at') && new Date().getTime() > pm.environment.get('token_expires_at')) {",
+                    "    pm.sendRequest({",
+                    "        url: pm.environment.get('base') + '/auth/refresh',",
+                    "        method: 'POST',",
+                    "        header: {",
+                    "            'Content-Type': 'application/json',",
+                    "            'Authorization': 'Bearer ' + pm.environment.get('refresh_token')",
+                    "        }",
+                    "    }, function (err, res) {",
+                    "        if (!err && res.code === 200) {",
+                    "            pm.environment.set('token', res.json().token);",
+                    "            pm.environment.set('token_expires_at', new Date().getTime() + (res.json().expiresIn * 1000));",
+                    "        }",
+                    "    });",
+                    "}"
+                ]
+            }
         }
     ],
     "variable": [
         {
             "key": "base",
-            "value": "http://localhost:5353/api/v1",
-            "type": "string"
-        },
-        {
-            "key": "token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-            "type": "string"
+            "value": "http://localhost:5353/api/v1"
         }
     ]
 }

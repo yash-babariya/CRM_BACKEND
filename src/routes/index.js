@@ -11,7 +11,8 @@ import leaveRoutes from "./leaveRoutes.js";
 import permissionRoutes from "./permissionRoutes.js";
 import subscriptionRoutes from "./subscriptionRoutes.js";
 import rolePermissionRoutes from "./rolePermissionRoutes.js";
-import announcementAndeventsetupRoutes from "./announcementAndeventsetupRoutes.js";
+import announcementRoutes from "./announcementRoutes.js";
+import eventRoutes from "./eventRoutes.js";
 const router = express.Router();
 
 
@@ -27,7 +28,7 @@ router.use('/leaves', leaveRoutes);
 router.use('/permissions', permissionRoutes);
 router.use('/role-permissions', rolePermissionRoutes);
 router.use('/subscriptions', subscriptionRoutes);
-router.use('/announcement-event-setup', announcementAndeventsetupRoutes);
-
+router.use('/announcements', announcementRoutes);
+router.use('/events', eventRoutes);
 
 export default router;

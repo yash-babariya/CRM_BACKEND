@@ -9,15 +9,15 @@ export default {
             id: Joi.string().required()
         }),
         body: Joi.object({
-            check_out: Joi.string().optional(),
-            status: Joi.string().valid('present', 'absent', 'half-day').optional(),
-            notes: Joi.string().optional()
+            endDate: Joi.date().optional(),
+            endTime: Joi.string().optional(),
+            comment: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
             const { id } = req.params;
-            const { check_out, status, notes } = req.body;
+            const { endDate, endTime, comment } = req.body;
 
             const attendance = await Attendance.findByPk(id);
             if (!attendance) {
@@ -25,9 +25,9 @@ export default {
             }
 
             await attendance.update({
-                check_out,
-                status,
-                notes,
+                endDate,
+                endTime,
+                comment,
                 updated_by: req.user?.id
             });
 

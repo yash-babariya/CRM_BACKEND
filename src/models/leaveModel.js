@@ -1,29 +1,28 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 import generateId from '../middlewares/generatorId.js';
 
-class Leave extends Model { }
-
-Leave.init({
+const Leave = sequelize.define('Leave', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
+        unique: true,
         defaultValue: () => generateId()
+    },
+    date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
     },
     employee_id: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'users',
-            key: 'id'
-        }
     },
     startDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     endDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     leaveType: {
@@ -39,43 +38,25 @@ Leave.init({
         defaultValue: 'pending'
     },
     admin_remarks: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
     created_by: {
         type: DataTypes.STRING,
-        references: {
-            model: 'users',
-            key: 'id'
-        }
+        allowNull: true
     },
     updated_by: {
         type: DataTypes.STRING,
-        references: {
-            model: 'users',
-            key: 'id'
-        }
+        allowNull: true
     }
-}, {
-    sequelize,
-    modelName: 'Leave',
-    tableName: 'leaves',
-    timestamps: true
 });
 
-// Define associations
-Leave.associate = (models) => {
-    Leave.belongsTo(models.User, {
-        foreignKey: 'employee_id',
-        as: 'employee'
-    });
-    Leave.belongsTo(models.User, {
-        foreignKey: 'created_by',
-        as: 'creator'
-    });
-    Leave.belongsTo(models.User, {
-        foreignKey: 'updated_by',
-        as: 'updater'
-    });
-};
-
-export default Leave; 
+export default Leave;

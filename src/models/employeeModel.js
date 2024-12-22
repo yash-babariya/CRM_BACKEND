@@ -9,79 +9,100 @@ const Employee = sequelize.define('Employee', {
         unique: true,
         defaultValue: () => generateId()
     },
-    firstName: {
+    username: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null
+    },
     phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: null,
         unique: true
     },
     address: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     joiningDate: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     leaveDate: {
         type: DataTypes.DATE,
-        allowNull: true
-    },
-    employeeId: {
-        type: DataTypes.STRING,
-        unique: true
+        allowNull: true,
+        defaultValue: null
     },
     department: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     designation: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     salary: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     accountholder: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     accountnumber: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     bankname: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     ifsc: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     banklocation: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     cv_path: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: null
     },
     photo_path: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: null
     },
     role: {
         type: DataTypes.STRING,
@@ -104,21 +125,6 @@ Employee.beforeCreate(async (employee) => {
         }
     }
     employee.id = newId;
-
-    // Handle employeeId generation
-    const lastEmployee = await Employee.findOne({
-        order: [['employeeId', 'DESC']]
-    });
-
-    let nextNumber = 1;
-    if (lastEmployee && lastEmployee.employeeId) {
-        // Extract the number from the last employeeId and increment it
-        const lastNumber = parseInt(lastEmployee.employeeId.replace('EMP', ''));
-        nextNumber = lastNumber + 1;
-    }
-
-    // Format the new employeeId with leading zeros
-    employee.employeeId = `EMP${String(nextNumber).padStart(3, '0')}`;
 });
 
 export default Employee;

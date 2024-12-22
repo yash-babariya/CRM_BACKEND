@@ -1,6 +1,6 @@
 import Joi from "joi";
 import Attendance from "../../models/attendanceModel.js";
-import User from "../../models/userModel.js";
+import Employee from "../../models/employeeModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -9,19 +9,20 @@ export default {
         body: Joi.object({
             employee_id: Joi.string().required(),
             date: Joi.date().required(),
-            checkIn: Joi.string().required(),
-            checkOut: Joi.string().optional(),
-            status: Joi.string().valid('present', 'absent', 'half-day').required(),
-            notes: Joi.string().optional()
+            startDate: Joi.date().required(),
+            startTime: Joi.string().required(),
+            endDate: Joi.date().required(),
+            endTime: Joi.string().required(),
+            comment: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
-            const { employee_id, date, check_in, check_out, status, notes } = req.body;
+            const { employee_id, date, startDate, startTime, endDate, endTime, comment } = req.body;
 
             // Check if user exists
-            const user = await User.findByPk(employee_id);
-            if (!user) {
+            const employee = await Employee.findByPk(employee_id);
+            if (!employee) {
                 return responseHandler.notFound(res, "User not found");
             }
 
@@ -37,10 +38,11 @@ export default {
             const attendance = await Attendance.create({
                 employee_id,
                 date,
-                check_in,
-                check_out,
-                status,
-                notes,
+                startDate,
+                startTime,
+                endDate,
+                endTime,
+                comment,
                 created_by: req.user?.id
             });
 

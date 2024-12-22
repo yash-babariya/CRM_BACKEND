@@ -19,7 +19,7 @@ app.use("/api/v1/", routes);
 
 const startServer = async () => {
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync({ force: false });
         console.log('✅ Database synced successfully');
 
         app.listen(PORT, () => {

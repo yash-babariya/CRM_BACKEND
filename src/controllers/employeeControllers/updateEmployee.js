@@ -20,7 +20,6 @@ export default {
             address: Joi.string(),
             joiningDate: Joi.date(),
             leaveDate: Joi.date().allow(null),
-            employeeId: Joi.string(),
             department: Joi.string(),
             designation: Joi.string(),
             salary: Joi.number(),
@@ -60,23 +59,6 @@ export default {
 
             // Update employee
             await employee.update(updateData);
-
-            // Handle file uploads if included in the request
-            if (req.files) {
-                const fileUpdateData = {};
-
-                if (req.files.cv) {
-                    fileUpdateData.cv_path = req.files.cv[0].path;
-                }
-
-                if (req.files.photo) {
-                    fileUpdateData.photo_path = req.files.photo[0].path;
-                }
-
-                if (Object.keys(fileUpdateData).length > 0) {
-                    await employee.update(fileUpdateData);
-                }
-            }
 
             responseHandler.success(res, "Employee updated successfully", employee);
         } catch (error) {

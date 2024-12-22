@@ -1,6 +1,6 @@
 import Joi from "joi";
 import Leave from "../../models/leaveModel.js";
-import User from "../../models/userModel.js";
+import Employee from "../../models/employeeModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -14,17 +14,10 @@ export default {
         try {
             const { id } = req.params;
 
-            const leave = await Leave.findByPk(id, {
-                include: [{
-                    model: User,
-                    attributes: ['username', 'email']
-                }]
-            });
-
+            const leave = await Leave.findByPk(id);
             if (!leave) {
                 return responseHandler.notFound(res, "Leave record not found");
             }
-
             responseHandler.success(res, "Leave fetched successfully", leave);
         } catch (error) {
             console.log(error);

@@ -1,6 +1,6 @@
 import Joi from "joi";
 import Leave from "../../models/leaveModel.js";
-import User from "../../models/userModel.js";
+import Employee from "../../models/employeeModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 import { Op } from "sequelize";
@@ -9,6 +9,7 @@ export default {
     validator: validator({
         body: Joi.object({
             employee_id: Joi.string().required(),
+            date: Joi.date().required(),
             startDate: Joi.date().required(),
             endDate: Joi.date().required(),
             leaveType: Joi.string().valid('sick', 'casual', 'annual', 'other').required(),
@@ -18,11 +19,11 @@ export default {
     }),
     handler: async (req, res) => {
         try {
-            const { employee_id, startDate, endDate, leaveType, reason, status } = req.body;
+            const { employee_id, date, startDate, endDate, leaveType, reason, status } = req.body;
 
             // Check if user exists
-            const user = await User.findByPk(employee_id);
-            if (!user) {
+            const employee = await Employee.findByPk(employee_id);
+            if (!employee) {
                 return responseHandler.notFound(res, "Employee not found");
             }
 
@@ -30,6 +31,7 @@ export default {
             const overlappingLeave = await Leave.findOne({
                 where: {
                     employee_id,
+                    date,
                     [Op.or]: [
                         {
                             startDate: {
@@ -48,9 +50,9 @@ export default {
             if (overlappingLeave) {
                 return responseHandler.error(res, "Leave already exists for these dates");
             }
-
             const leave = await Leave.create({
                 employee_id,
+                date,
                 startDate,
                 endDate,
                 leaveType,

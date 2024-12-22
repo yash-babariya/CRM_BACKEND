@@ -1,6 +1,4 @@
 import Role from "../../models/roleModel.js";
-import User from "../../models/userModel.js";
-import Client from "../../models/clientModel.js";
 import responseHandler from "../../utils/responseHandler.js";
 
 const checkUserRole = (allowedRoles) => {
@@ -9,9 +7,7 @@ const checkUserRole = (allowedRoles) => {
             if (!req.user || !req.user.id) {
                 return responseHandler.error(res, "User not authenticated");
             }
-
-            const user = await User.findByPk(req.user.id) || await Client.findByPk(req.user.id);
-
+            const user = req.user;
             if (!user) {
                 return responseHandler.error(res, "User not found");
             }

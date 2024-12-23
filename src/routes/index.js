@@ -13,11 +13,8 @@ import subscriptionRoutes from "./subscriptionRoutes.js";
 import rolePermissionRoutes from "./rolePermissionRoutes.js";
 import announcementRoutes from "./announcementRoutes.js";
 import eventRoutes from "./eventRoutes.js";
-<<<<<<< HEAD
 import projectRoutes from "./projectRoutes.js";
-=======
 import meetingRoutes from "./meetingRoutes.js";
->>>>>>> c4ba866acd46dee9d4912a2d74e7655c88d88bf1
 const router = express.Router();
 
 

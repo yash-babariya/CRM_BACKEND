@@ -28,4 +28,17 @@ const RolePermission = sequelize.define('RolePermission', {
     }
 });
 
+RolePermission.beforeCreate(async (rolePermission) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingRolePermission = await RolePermission.findOne({ where: { id: newId } });
+        if (!existingRolePermission) {
+            isUnique = true;
+        }
+    }
+    rolePermission.id = newId;
+});
+
 export default RolePermission; 

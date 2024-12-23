@@ -23,9 +23,7 @@ export default {
             if (!announcement) {
                 return responseHandler.error(res, "Announcement not found");
             }
-            announcement.title = title;
-            announcement.description = description;
-            await announcement.save();
+            await announcement.update({ title, description });
             responseHandler.success(res, "Announcement updated successfully", announcement);
         } catch (error) {
             responseHandler.error(res, error.message);

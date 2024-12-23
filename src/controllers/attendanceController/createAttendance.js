@@ -8,7 +8,6 @@ export default {
     validator: validator({
         body: Joi.object({
             employee_id: Joi.string().required(),
-            date: Joi.date().required(),
             startDate: Joi.date().required(),
             startTime: Joi.string().required(),
             endDate: Joi.date().required(),
@@ -18,7 +17,7 @@ export default {
     }),
     handler: async (req, res) => {
         try {
-            const { employee_id, date, startDate, startTime, endDate, endTime, comment } = req.body;
+            const { employee_id, startDate, startTime, endDate, endTime, comment } = req.body;
 
             // Check if user exists
             const employee = await Employee.findByPk(employee_id);
@@ -28,7 +27,21 @@ export default {
 
             // Check if attendance already exists for this date
             const existingAttendance = await Attendance.findOne({
-                where: { employee_id, date }
+                where: {
+                    employee_id,
+                    [Op.or]: [
+                        {
+                            startDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        },
+                        {
+                            endDate: {
+                                [Op.between]: [startDate, endDate]
+                            }
+                        }
+                    ]
+                }
             });
 
             if (existingAttendance) {
@@ -37,7 +50,6 @@ export default {
 
             const attendance = await Attendance.create({
                 employee_id,
-                date,
                 startDate,
                 startTime,
                 endDate,

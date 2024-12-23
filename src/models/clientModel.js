@@ -55,7 +55,6 @@ Client.beforeCreate(async (client) => {
     let newId;
     while (!isUnique) {
         newId = generateId();
-        // Check if this ID already exists
         const existingClient = await Client.findOne({
             where: { id: newId }
         });

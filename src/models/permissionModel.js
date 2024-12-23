@@ -36,7 +36,6 @@ const Permission = sequelize.define('Permission', {
     }
 });
 
-// Ensure unique permission_id before creating
 Permission.beforeCreate(async (permission) => {
     let isUnique = false;
     let newId;

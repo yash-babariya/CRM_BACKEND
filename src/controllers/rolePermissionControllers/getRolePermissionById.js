@@ -1,7 +1,5 @@
 import Joi from "joi";
 import RolePermission from "../../models/rolePermissionModel.js";
-import Role from "../../models/roleModel.js";
-import Permission from "../../models/permissionModel.js";
 import validator from "../../utils/validator.js";
 import responseHandler from "../../utils/responseHandler.js";
 
@@ -18,18 +16,7 @@ export default {
         try {
             const { id } = req.params;
 
-            const rolePermission = await RolePermission.findByPk(id, {
-                include: [
-                    {
-                        model: Role,
-                        attributes: ['name']
-                    },
-                    {
-                        model: Permission,
-                        attributes: ['name', 'description']
-                    }
-                ]
-            });
+            const rolePermission = await RolePermission.findByPk(id);
 
             if (!rolePermission) {
                 return responseHandler.notFound(res, "Role permission not found");

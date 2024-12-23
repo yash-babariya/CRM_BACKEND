@@ -1,8 +1,7 @@
-// import { AnnouncementAndEventSetup } from "../../models/announcementAndEventSetup.js";
-import responseHandler from "../../utils/responseHandler.js";
 import Joi from "joi";
 import validator from "../../utils/validator.js";
 import EventSetup from "../../models/eventsetupModel.js";
+import responseHandler from "../../utils/responseHandler.js";
 
 export default {
     validator: validator({
@@ -20,11 +19,7 @@ export default {
             if (!event) {
                 return responseHandler.error(res, "Event not found");
             }
-            event.EventTitle = EventTitle;
-            event.EventManager = EventManager;
-            event.EventDate = EventDate;
-            event.EventTime = EventTime;
-            await event.save();
+            await event.update({ EventTitle, EventManager, EventDate, EventTime });
             responseHandler.success(res, "Event updated successfully", event);
         } catch (error) {
             responseHandler.error(res, error.message);

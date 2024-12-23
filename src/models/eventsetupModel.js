@@ -27,4 +27,18 @@ const EventSetup = sequelize.define('EventSetup', {
         allowNull: false
     }
 })
+
+EventSetup.beforeCreate(async (eventSetup) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingEventSetup = await EventSetup.findOne({ where: { id: newId } });
+        if (!existingEventSetup) {
+            isUnique = true;
+        }
+    }
+    eventSetup.id = newId;
+});
+
 export default EventSetup;

@@ -112,7 +112,6 @@ const Employee = sequelize.define('Employee', {
 });
 
 Employee.beforeCreate(async (employee) => {
-    // Handle main ID
     let isUnique = false;
     let newId;
     while (!isUnique) {

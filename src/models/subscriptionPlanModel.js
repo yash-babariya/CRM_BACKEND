@@ -6,6 +6,7 @@ const SubscriptionPlan = sequelize.define('SubscriptionPlan', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
+        unique: true,
         defaultValue: () => generateId()
     },
     name: {
@@ -52,6 +53,19 @@ const SubscriptionPlan = sequelize.define('SubscriptionPlan', {
         type: DataTypes.ENUM('active', 'inactive'),
         defaultValue: 'active'
     }
+});
+
+SubscriptionPlan.beforeCreate(async (subscriptionPlan) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingSubscriptionPlan = await SubscriptionPlan.findOne({ where: { id: newId } });
+        if (!existingSubscriptionPlan) {
+            isUnique = true;
+        }
+    }
+    subscriptionPlan.id = newId;
 });
 
 export default SubscriptionPlan; 

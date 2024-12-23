@@ -13,10 +13,6 @@ const Attendance = sequelize.define('Attendance', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
     startDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
@@ -37,6 +33,19 @@ const Attendance = sequelize.define('Attendance', {
         type: DataTypes.TEXT,
         allowNull: true
     }
+});
+
+Attendance.beforeCreate(async (attendance) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingAttendance = await Attendance.findOne({ where: { id: newId } });
+        if (!existingAttendance) {
+            isUnique = true;
+        }
+    }
+    attendance.id = newId;
 });
 
 

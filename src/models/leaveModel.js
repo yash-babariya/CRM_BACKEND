@@ -9,10 +9,6 @@ const Leave = sequelize.define('Leave', {
         unique: true,
         defaultValue: () => generateId()
     },
-    date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
     employee_id: {
         type: DataTypes.STRING,
         allowNull: false,

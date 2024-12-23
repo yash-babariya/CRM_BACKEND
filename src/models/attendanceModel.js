@@ -13,10 +13,6 @@ const Attendance = sequelize.define('Attendance', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
     startDate: {
         type: DataTypes.DATEONLY,
         allowNull: false

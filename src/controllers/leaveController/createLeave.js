@@ -9,7 +9,6 @@ export default {
     validator: validator({
         body: Joi.object({
             employee_id: Joi.string().required(),
-            date: Joi.date().required(),
             startDate: Joi.date().required(),
             endDate: Joi.date().required(),
             leaveType: Joi.string().valid('sick', 'casual', 'annual', 'other').required(),
@@ -19,7 +18,7 @@ export default {
     }),
     handler: async (req, res) => {
         try {
-            const { employee_id, date, startDate, endDate, leaveType, reason, status } = req.body;
+            const { employee_id, startDate, endDate, leaveType, reason, status } = req.body;
 
             // Check if user exists
             const employee = await Employee.findByPk(employee_id);
@@ -31,7 +30,6 @@ export default {
             const overlappingLeave = await Leave.findOne({
                 where: {
                     employee_id,
-                    date,
                     [Op.or]: [
                         {
                             startDate: {
@@ -52,7 +50,6 @@ export default {
             }
             const leave = await Leave.create({
                 employee_id,
-                date,
                 startDate,
                 endDate,
                 leaveType,

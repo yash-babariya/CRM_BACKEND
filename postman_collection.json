@@ -857,31 +857,84 @@
                     }
                 }
             ]
-        }
-    ],
-    "event": [
+        },
         {
-            "listen": "prerequest",
-            "script": {
-                "type": "text/javascript",
-                "exec": [
-                    "if (pm.environment.get('token_expires_at') && new Date().getTime() > pm.environment.get('token_expires_at')) {",
-                    "    pm.sendRequest({",
-                    "        url: pm.environment.get('base') + '/auth/refresh',",
-                    "        method: 'POST',",
-                    "        header: {",
-                    "            'Content-Type': 'application/json',",
-                    "            'Authorization': 'Bearer ' + pm.environment.get('refresh_token')",
-                    "        }",
-                    "    }, function (err, res) {",
-                    "        if (!err && res.code === 200) {",
-                    "            pm.environment.set('token', res.json().token);",
-                    "            pm.environment.set('token_expires_at', new Date().getTime() + (res.json().expiresIn * 1000));",
-                    "        }",
-                    "    });",
-                    "}"
-                ]
-            }
+            "name": "Meetings",
+            "item": [
+                {
+                    "name": "Create Meeting",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{base}}/meetings",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Project Review\",\n    \"description\": \"Weekly project status review\",\n    \"date\": \"2024-01-20\",\n    \"startTime\": \"14:00\",\n    \"endTime\": \"15:00\",\n    \"location\": \"Conference Room A\",\n    \"status\": \"scheduled\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Meetings",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/meetings",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Meeting By Id",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base}}/meetings/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Meeting",
+                    "request": {
+                        "method": "PUT",
+                        "url": "{{base}}/meetings/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Updated Project Review\",\n    \"description\": \"Updated weekly project status review\",\n    \"date\": \"2024-01-21\",\n    \"startTime\": \"15:00\",\n    \"endTime\": \"16:00\",\n    \"location\": \"Conference Room B\",\n    \"status\": \"rescheduled\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Meeting",
+                    "request": {
+                        "method": "DELETE",
+                        "url": "{{base}}/meetings/:id",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": "{{token}}"
+                        }
+                    }
+                }
+            ]
         }
     ],
     "variable": [

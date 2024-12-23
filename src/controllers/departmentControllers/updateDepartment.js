@@ -12,11 +12,11 @@ export default {
                 .pattern(/^[a-zA-Z\s]+$/)
                 .min(2)
                 .max(50)
-            .messages({
-                'string.pattern.base': 'Department name must contain only letters and spaces',
-                'string.min': 'Department name must be at least 2 characters long',
-                'string.max': 'Department name cannot exceed 50 characters',
-                'string.empty': 'Department name is required'
+                .messages({
+                    'string.pattern.base': 'Department name must contain only letters and spaces',
+                    'string.min': 'Department name must be at least 2 characters long',
+                    'string.max': 'Department name cannot exceed 50 characters',
+                    'string.empty': 'Department name is required'
                 })
         })
     }),
@@ -27,8 +27,7 @@ export default {
             if (!department) {
                 return responseHandler.error(res, "Department not found");
             }
-            department.department_name = department_name;
-            await department.save();
+            await department.update({ department_name });
             responseHandler.success(res, "Department updated successfully", department);
         } catch (error) {
             responseHandler.error(res, error.message);

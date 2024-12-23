@@ -1,8 +1,8 @@
 import Joi from "joi";
-import Employee from "../../models/employeeModel.js";
-import validator from "../../utils/validator.js";
-import responseHandler from "../../utils/responseHandler.js";
 import bcrypt from "bcrypt";
+import validator from "../../utils/validator.js";
+import Employee from "../../models/employeeModel.js";
+import responseHandler from "../../utils/responseHandler.js";
 
 export default {
     validator: validator({
@@ -25,12 +25,35 @@ export default {
                     'string.empty': 'Password is required',
                     'string.min': 'Password must be at least 8 characters',
                     'string.pattern.base': 'Password must contain only letters, numbers and special characters'
-                })
+                }),
+            firstName: Joi.string().optional(),
+            lastName: Joi.string().optional(),
+            phone: Joi.string().optional(),
+            address: Joi.string().optional(),
+            joiningDate: Joi.date().optional(),
+            leaveDate: Joi.date().optional(),
+            department: Joi.string().optional(),
+            designation: Joi.string().optional(),
+            salary: Joi.number().optional(),
+            accountholder: Joi.string().optional(),
+            accountnumber: Joi.string().optional(),
+            bankname: Joi.string().optional(),
+            ifsc: Joi.string().optional(),
+            banklocation: Joi.string().optional(),
+            cv_path: Joi.string().optional(),
+            photo_path: Joi.string().optional(),
+            role: Joi.string().optional()
         })
     }),
     handler: async (req, res) => {
         try {
-            const { username, email, password } = req.body;
+            const {
+                username, email, password, firstName, lastName, phone,
+                address, joiningDate, leaveDate, department, designation,
+                salary, accountholder, accountnumber, bankname, ifsc,
+                banklocation, cv_path, photo_path, role
+            } = req.body;
+
             // Check if email already exists
             const existingEmail = await Employee.findOne({ where: { email } });
             if (existingEmail) {
@@ -40,12 +63,28 @@ export default {
             // Hash the password
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Create employee with basic details
+            // Create employee with all fields
             const employee = await Employee.create({
                 username,
                 email,
                 password: hashedPassword,
-                role: 'employee'  // Default role
+                firstName,
+                lastName,
+                phone,
+                address,
+                joiningDate,
+                leaveDate,
+                department,
+                designation,
+                salary,
+                accountholder,
+                accountnumber,
+                bankname,
+                ifsc,
+                banklocation,
+                cv_path,
+                photo_path,
+                role: role || 'employee' // Default role if not provided
             });
 
             responseHandler.created(res, "Employee created successfully", employee);

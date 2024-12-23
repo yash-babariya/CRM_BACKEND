@@ -6,7 +6,6 @@ import Designation from "../../models/designationModel.js";
 export default {
     validator: validator({
         body: Joi.object({
-            // designation_id: Joi.string().required(),
             designation_name: Joi.string()
                 .required()
                 .pattern(/^[a-zA-Z\s]+$/)
@@ -27,8 +26,7 @@ export default {
             if (!designation) {
                 return responseHandler.error(res, "Designation not found");
             }
-            designation.designation_name = designation_name;
-            await designation.save();
+            await designation.update({ designation_name });
             responseHandler.success(res, "Designation updated successfully", designation);
         } catch (error) {
             responseHandler.error(res, error.message);

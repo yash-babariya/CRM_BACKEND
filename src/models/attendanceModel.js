@@ -35,5 +35,18 @@ const Attendance = sequelize.define('Attendance', {
     }
 });
 
+Attendance.beforeCreate(async (attendance) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingAttendance = await Attendance.findOne({ where: { id: newId } });
+        if (!existingAttendance) {
+            isUnique = true;
+        }
+    }
+    attendance.id = newId;
+});
+
 
 export default Attendance;

@@ -19,4 +19,17 @@ const Announcement = sequelize.define('Announcement', {
     }
 })
 
+Announcement.beforeCreate(async (announcement) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingAnnouncement = await Announcement.findOne({ where: { id: newId } });
+        if (!existingAnnouncement) {
+            isUnique = true;
+        }
+    }
+    announcement.id = newId;
+});
+
 export default Announcement;

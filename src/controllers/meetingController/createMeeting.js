@@ -29,7 +29,7 @@ export default {
                 createdBy: req.user?.id
             });
 
-            return responseHandler.success(res, meeting);
+            return responseHandler.success(res, "Meeting created successfully", meeting);
         } catch (error) {
             return responseHandler.error(res, error);
         }

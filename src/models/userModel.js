@@ -60,7 +60,6 @@ User.beforeCreate(async (user) => {
     let newId;
     while (!isUnique) {
         newId = generateId();
-        // Check if this ID already exists
         const existingUser = await User.findOne({
             where: { id: newId }
         });

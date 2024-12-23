@@ -3,17 +3,14 @@ import sequelize from '../config/database.js';
 
 const Notification = sequelize.define('Notification', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
+        unique: true,
+        defaultValue: () => generateId()
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: 'Users',
-            key: 'id'
-        }
     },
     message: {
         type: DataTypes.STRING,
@@ -35,6 +32,19 @@ const Notification = sequelize.define('Notification', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     }
+});
+
+Notification.beforeCreate(async (notification) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingNotification = await Notification.findOne({ where: { id: newId } });
+        if (!existingNotification) {
+            isUnique = true;
+        }
+    }
+    notification.id = newId;
 });
 
 export default Notification;

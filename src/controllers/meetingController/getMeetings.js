@@ -16,7 +16,7 @@ export default {
             if (!meetings) {
                 return responseHandler.notFound(res, "Meetings not found");
             }
-            return responseHandler.success(res, meetings);
+            return responseHandler.success(res, "Meetings retrieved successfully", meetings);
         } catch (error) {
             return responseHandler.error(res, error);
         }

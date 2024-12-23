@@ -1,11 +1,14 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
+import generateId from '../middlewares/generatorId.js';
+
 
 const Meeting = sequelize.define('Meeting', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        unique: true,
+        defaultValue: () => generateId()
     },
     title: {
         type: DataTypes.STRING,
@@ -47,6 +50,21 @@ const Meeting = sequelize.define('Meeting', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     }
+});
+
+Meeting.beforeCreate(async (meeting) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingMeeting = await Meeting.findOne({
+            where: { id: newId }
+        });
+        if (!existingMeeting) {
+            isUnique = true;
+        }
+    }
+    meeting.id = newId;
 });
 
 export default Meeting;

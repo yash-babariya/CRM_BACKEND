@@ -17,7 +17,7 @@ export default {
                 return responseHandler.notFound(res, "Meeting not found");
             }
             await meeting.destroy();
-            return responseHandler.success(res, "Meeting deleted successfully");
+            return responseHandler.success(res, "Meeting deleted successfully", meeting);
         } catch (error) {
             return responseHandler.error(res, error);
         }

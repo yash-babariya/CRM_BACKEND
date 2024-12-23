@@ -55,4 +55,17 @@ const Leave = sequelize.define('Leave', {
     }
 });
 
+Leave.beforeCreate(async (leave) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingLeave = await Leave.findOne({ where: { id: newId } });
+        if (!existingLeave) {
+            isUnique = true;
+        }
+    }
+    leave.id = newId;
+});
+
 export default Leave;

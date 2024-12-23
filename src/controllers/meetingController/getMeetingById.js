@@ -19,7 +19,7 @@ export default {
             if (!meeting) {
                 return responseHandler.notFound(res, "Meeting not found");
             }
-            return responseHandler.success(res, meeting);
+            return responseHandler.success(res, "Meeting retrieved successfully", meeting);
         } catch (error) {
             return responseHandler.error(res, error);
         }

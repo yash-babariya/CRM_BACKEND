@@ -6,6 +6,7 @@ const ClientSubscription = sequelize.define('ClientSubscription', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
+        unique: true,
         defaultValue: () => generateId()
     },
     client_id: {
@@ -40,6 +41,21 @@ const ClientSubscription = sequelize.define('ClientSubscription', {
         type: DataTypes.DATE,
         allowNull: true
     }
+});
+
+ClientSubscription.beforeCreate(async (user) => {
+    let isUnique = false;
+    let newId;
+    while (!isUnique) {
+        newId = generateId();
+        const existingClientSubscription = await ClientSubscription.findOne({
+            where: { id: newId }
+        });
+        if (!existingClientSubscription) {
+            isUnique = true;
+        }
+    }
+    ClientSubscription.id = newId;
 });
 
 export default ClientSubscription; 

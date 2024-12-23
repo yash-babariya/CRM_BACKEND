@@ -6,6 +6,7 @@ const Designation = sequelize.define('Designation', {
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
+    unique: true,
     defaultValue: () => generateId()
   },
   name: {
@@ -25,6 +26,19 @@ const Designation = sequelize.define('Designation', {
     type: DataTypes.ENUM('active', 'inactive'),
     defaultValue: 'active'
   }
+});
+
+Designation.beforeCreate(async (designation) => {
+  let isUnique = false;
+  let newId;
+  while (!isUnique) {
+    newId = generateId();
+    const existingDesignation = await Designation.findOne({ where: { id: newId } });
+    if (!existingDesignation) {
+      isUnique = true;
+    }
+  }
+  designation.id = newId;
 });
 
 export default Designation;
